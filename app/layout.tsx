@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/layouts/Navbar";
 import Footer from "@/components/Reusable/Footer";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 import Head from "next/head";
@@ -24,6 +25,19 @@ Readonly<{children: React.ReactNode;}>)
     </Head>
     <html lang="en" className="scrollbar-none overflow-y-scroll">
       <body className={`${inter.className}`}>
+{/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-90LSQWVPVQ"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-90LSQWVPVQ');
+          `}
+        </Script>
         <Navbar/>
           {children}
         <Footer/>
