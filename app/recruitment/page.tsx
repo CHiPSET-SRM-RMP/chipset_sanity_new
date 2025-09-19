@@ -27,9 +27,6 @@ export default function Careers() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  // SheetDB API URL for form submission
-  const SHEETDB_URL = "https://sheetdb.io/api/v1/fx9rcfx6e42eg";
-
   const onSubmit = async (data: FormData) => {
     console.log("Form data:", data);
     setIsSubmitting(true);
@@ -43,42 +40,45 @@ export default function Careers() {
         return;
       }
       
+      // Prepare the payload for the new API endpoint
       const payload = {
-        data: [{
-          Timestamp: new Date().toISOString(), // Add timestamp
-          Name: data.name,
-          Year: data.year,
-          "Reg no": data.regNo, // Exact column name match
-          Department: data.department,
-          Specilisation: data.specialization || "", // Exact column name match
-          contact: data.contactNo, // Exact column name match
-          email: data.email,
-          "srm email": data.srmEmail, // Exact column name match
-          Linkedin: data.linkedinProfile, // Exact column name match
-          Github: data.githubProfile || "", // Exact column name match, now optional
-          other: data.otherLinks || "", // Exact column name match
-          Domain: data.domain,
-          "prior activities": data.priorActivities, // Exact column name match
-          "resume link": data.resumeLink // Exact column name match
-        }]
+        name: data.name,
+        year: data.year,
+        regNo: data.regNo,
+        department: data.department,
+        specialization: data.specialization || "",
+        contactNo: data.contactNo,
+        email: data.email,
+        srmEmail: data.srmEmail,
+        linkedinProfile: data.linkedinProfile,
+        githubProfile: (data.githubProfile && data.githubProfile.trim()) || undefined,
+        otherLinks: (data.otherLinks && data.otherLinks.trim()) || undefined,
+        domain: data.domain,
+        priorActivities: data.priorActivities,
+        resumeLink: data.resumeLink
       };
 
-      const response = await fetch(SHEETDB_URL, {
+      const response = await fetch("https://recruitment-fvbnapazb8d8bqgf.southindia-01.azurewebsites.net/api/recruitment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
 
       const result = await response.json();
-      console.log("Response from SheetDB:", result);
+      console.log("Response from API:", result);
 
-      if (result.created) {
+      if (response.ok && result.success) {
         setSubmitted(true);
         reset();
         // Scroll to the top of the form to see the success message
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        throw new Error("Failed to save data");
+        // Show detailed validation errors if available
+        if (result.details && Array.isArray(result.details)) {
+          const errorMessages = result.details.map((detail: any) => `${detail.path}: ${detail.msg}`).join(', ');
+          throw new Error(`Validation failed: ${errorMessages}`);
+        }
+        throw new Error(result.error || "Failed to save data");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -177,6 +177,11 @@ export default function Careers() {
         <label className="block text-sm font-medium">GitHub (Optional)</label>
         <input type="url" placeholder="https://github.com/..." {...register("githubProfile")} className="w-full p-3 border rounded-lg" />
         {errors.githubProfile && <p className="text-red-500">{errors.githubProfile.message}</p>}
+
+        {/* Other Links (Optional) */}
+        <label className="block text-sm font-medium">Other Links (Optional)</label>
+        <input type="url" placeholder="Portfolio, Behance, etc..." {...register("otherLinks")} className="w-full p-3 border rounded-lg" />
+        {errors.otherLinks && <p className="text-red-500">{errors.otherLinks.message}</p>}
 
         {/* Domain */}
         <label className="block text-sm font-medium">Domain *</label>
