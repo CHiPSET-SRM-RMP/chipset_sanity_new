@@ -2,11 +2,11 @@ import sql from 'mssql';
 
 // Database configuration
 const config: sql.config = {
-  server: 'ledgerlegends.database.windows.net',
-  port: 1433,
-  database: 'reecruitments',
-  user: 'ledgerlegends',
-  password: 'Chakra*2006',
+  server: process.env.DB_SERVER || '',
+  port: parseInt(process.env.DB_PORT || "1433"),
+  database: process.env.DB_NAME || '',
+  user: process.env.DB_USER || '',
+  password: process.env.DB_PASSWORD || '',
   options: {
     encrypt: true,
     trustServerCertificate: false,
