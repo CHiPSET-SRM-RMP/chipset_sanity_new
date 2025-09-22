@@ -1,30 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDbConnection, createRecruitmentTable } from '@/lib/database';
+
+// Backend API URL - Azure deployed backend
+const BACKEND_URL = 'https://recruitment-fvbnapazb8d8bqgf.southindia-01.azurewebsites.net';
 
 export async function GET(request: NextRequest) {
   try {
-    console.log('Testing database connection...');
+    console.log('Testing backend connection...');
     
-    // Test database connection
-    const connection = await getDbConnection();
-    console.log('Database connection successful');
-    
-    // Create table if it doesn't exist
-    await createRecruitmentTable();
-    console.log('Table creation/verification successful');
-    
-    return NextResponse.json({
-      success: true,
-      message: 'Database connection and table setup successful',
-      timestamp: new Date().toISOString()
+    // Forward the request to your backend
+    const backendResponse = await fetch(`${BACKEND_URL}/api/test/db`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+
+    const responseData = await backendResponse.json();
+
+    // Return the backend response with the same status code
+    return NextResponse.json(responseData, { 
+      status: backendResponse.status 
     });
     
   } catch (error) {
-    console.error('Database test error:', error);
+    console.error('Frontend API Error:', error);
     
     return NextResponse.json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Failed to connect to backend',
+      message: 'Please try again later',
       timestamp: new Date().toISOString()
     }, { status: 500 });
   }
