@@ -58,7 +58,7 @@ export default function Careers() {
         resumeLink: data.resumeLink
       };
 
-      const response = await fetch("https://recruitment-fvbnapazb8d8bqgf.southindia-01.azurewebsites.net/api/recruitment", {
+      const response = await fetch("http://localhost:3001/api/recruitment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -73,6 +73,12 @@ export default function Careers() {
         // Scroll to the top of the form to see the success message
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
+        // Handle specific HTTP status codes
+        if (response.status === 409) {
+          // Conflict - duplicate entry
+          throw new Error(result.error || "You have already submitted an application with these details.");
+        }
+        
         // Show detailed validation errors if available
         if (result.details && Array.isArray(result.details)) {
           const errorMessages = result.details.map((detail: any) => `${detail.path}: ${detail.msg}`).join(', ');
