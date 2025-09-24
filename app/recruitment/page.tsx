@@ -58,7 +58,7 @@ export default function Careers() {
         resumeLink: data.resumeLink
       };
 
-      const response = await fetch("http://localhost:3001/api/recruitment", {
+      const response = await fetch("https://recruitment-fvbnapazb8d8bqgf.southindia-01.azurewebsites.net/api/recruitment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
