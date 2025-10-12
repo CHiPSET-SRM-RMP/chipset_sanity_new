@@ -318,6 +318,9 @@ export default function Careers() {
             {errors.subdomain && <p className="text-red-500">{errors.subdomain.message}</p>}
           </div>
         )}
+         <p className="text-xs text-gray-500 mt-1">
+          Select non technical to see domains inside it.
+        </p>
 
         {/* Why should we recruit you? */}
         <label className="block text-sm font-medium">Why should we recruit you? *</label>
