@@ -13,13 +13,13 @@ interface FormData {
   contactNo: string; // Will map to "contact"
   email: string;
   srmEmail: string; // Will map to "srm email"
-  linkedinProfile: string; // Will map to "Linkedin"
+  linkedinProfile?: string; // Now optional, will map to "Linkedin"
   githubProfile?: string; // Now optional, will map to "Github"
   otherLinks?: string; // Will map to "other"
   domain: string;
   subdomain?: string; // New field for non-technical subdomains
   priorActivities: string; // Will map to "prior activities"
-  resumeLink: string; // Will map to "resume link"
+  resumeLink?: string; // Now optional, will map to "resume link"
 }
 
 export default function Careers() {
@@ -34,9 +34,19 @@ export default function Careers() {
     setSubmitError(null);
 
     try {
-      // Validate the resume link format (basic check for Google Drive links)
-      if (!data.resumeLink.includes("drive.google.com")) {
-        setSubmitError("Please enter a valid Google Drive link for your resume");
+      // Create a default LinkedIn URL and Resume link to satisfy database NOT NULL constraints
+      const defaultLinkedInURL = "https://linkedin.com/in/not-provided";
+      const defaultResumeLink = "https://drive.google.com/not-provided";
+      
+      // Validate format of optional fields if provided
+      if (data.resumeLink && typeof data.resumeLink === 'string' && !data.resumeLink.includes("drive.google.com")) {
+        setSubmitError("If providing a resume link, please enter a valid Google Drive link");
+        setIsSubmitting(false);
+        return;
+      }
+      
+      if (data.linkedinProfile && typeof data.linkedinProfile === 'string' && !data.linkedinProfile.includes("linkedin.com")) {
+        setSubmitError("If providing a LinkedIn profile, please enter a valid LinkedIn URL");
         setIsSubmitting(false);
         return;
       }
@@ -51,14 +61,16 @@ export default function Careers() {
         contactNo: data.contactNo,
         email: data.email,
         srmEmail: data.srmEmail,
-        linkedinProfile: data.linkedinProfile,
+        // Use default values to satisfy database NOT NULL constraints
+        linkedinProfile: (data.linkedinProfile && data.linkedinProfile.trim()) || defaultLinkedInURL,
         githubProfile: (data.githubProfile && data.githubProfile.trim()) || undefined,
         otherLinks: (data.otherLinks && data.otherLinks.trim()) || undefined,
         domain: data.domain,
         // Include subdomain only if domain is non-technical (explicitly set to improve debugging)
         subdomain: data.domain === "non-technical" ? data.subdomain : null,
         priorActivities: data.priorActivities,
-        resumeLink: data.resumeLink
+        // Use default resume link to satisfy database NOT NULL constraint if needed
+        resumeLink: (data.resumeLink && data.resumeLink.trim()) || defaultResumeLink
       };
 
       // Debug the payload to see if subdomain is included
@@ -224,8 +236,7 @@ export default function Careers() {
           <option value="">Select year</option>
           <option value="1">1st Year</option>
           <option value="2">2nd Year</option>
-          <option value="3">3rd Year</option>
-          <option value="4">4th Year</option>
+          
         </select>
         {errors.year && <p className="text-red-500">{errors.year.message}</p>}
 
@@ -258,10 +269,13 @@ export default function Careers() {
         <input type="email" {...register("srmEmail", { required: "SRM email is required" })} className="w-full p-3 border rounded-lg" />
         {errors.srmEmail && <p className="text-red-500">{errors.srmEmail.message}</p>}
 
-        {/* LinkedIn */}
-        <label className="block text-sm font-medium">LinkedIn *</label>
-        <input type="url" {...register("linkedinProfile", { required: "LinkedIn profile is required" })} className="w-full p-3 border rounded-lg" />
+        {/* LinkedIn (Optional) */}
+        <label className="block text-sm font-medium">LinkedIn (Optional)</label>
+        <input type="url" placeholder="https://linkedin.com/in/..." {...register("linkedinProfile")} className="w-full p-3 border rounded-lg" />
         {errors.linkedinProfile && <p className="text-red-500">{errors.linkedinProfile.message}</p>}
+        <p className="text-xs text-gray-500 mt-1">
+          Leave blank if you don&apos;t have a LinkedIn profile.
+        </p>
 
         {/* GitHub (Optional) */}
         <label className="block text-sm font-medium">GitHub (Optional)</label>
@@ -280,7 +294,7 @@ export default function Careers() {
           className="w-full p-3 border rounded-lg"
         >
           <option value="">Select your domain</option>
-          <option value="technical">Technical</option>
+          <option value="technical">Technical (Competitive programming, e.t.c)</option>
           <option value="non-technical">Non-Technical</option>
         </select>
         {errors.domain && <p className="text-red-500">{errors.domain.message}</p>}
@@ -305,18 +319,17 @@ export default function Careers() {
           </div>
         )}
 
-        {/* Prior Activities */}
-        <label className="block text-sm font-medium">Prior Activities *</label>
+        {/* Why should we recruit you? */}
+        <label className="block text-sm font-medium">Why should we recruit you? *</label>
         <textarea {...register("priorActivities", { required: "Please describe your prior activities" })} className="w-full p-3 border rounded-lg" />
         {errors.priorActivities && <p className="text-red-500">{errors.priorActivities.message}</p>}
 
-        {/* Resume Link */}
-        <label className="block text-sm font-medium">Resume Link (Google Drive) *</label>
+        {/* Resume Link (Optional) */}
+        <label className="block text-sm font-medium">Resume Link/Works related to domain (Google Drive) (Optional)</label>
         <input 
           type="url" 
           placeholder="https://drive.google.com/..." 
           {...register("resumeLink", { 
-            required: "Resume link is required",
             pattern: {
               value: /drive\.google\.com/,
               message: "Please enter a valid Google Drive link"
@@ -326,7 +339,7 @@ export default function Careers() {
         />
         {errors.resumeLink && <p className="text-red-500">{errors.resumeLink.message}</p>}
         <p className="text-xs text-gray-500 mt-1">
-          Upload your resume to Google Drive, make it accessible to anyone with the link, and paste the link here.
+          Optional: If you have a resume, upload it to Google Drive, make it accessible to anyone with the link, and paste the link here. If you are applying for design or video editing, make sure you add related works in the Google Drive link for the same.
         </p>
 
         {/* Submit Button */}
