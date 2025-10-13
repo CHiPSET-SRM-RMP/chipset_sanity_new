@@ -38,15 +38,42 @@ export default function Careers() {
       const defaultLinkedInURL = "https://linkedin.com/in/not-provided";
       const defaultResumeLink = "https://drive.google.com/not-provided";
       
-      // Validate format of optional fields if provided
+      // For second year students, make LinkedIn, GitHub and resume links mandatory
+      if (data.year === "2") {
+        if (!data.linkedinProfile || data.linkedinProfile.trim() === "") {
+          setSubmitError("LinkedIn profile is required for second-year students");
+          setIsSubmitting(false);
+          return;
+        }
+        
+        if (!data.githubProfile || data.githubProfile.trim() === "") {
+          setSubmitError("GitHub profile is required for second-year students");
+          setIsSubmitting(false);
+          return;
+        }
+        
+        if (!data.resumeLink || data.resumeLink.trim() === "") {
+          setSubmitError("Resume link is required for second-year students");
+          setIsSubmitting(false);
+          return;
+        }
+      }
+      
+      // Validate format of fields if provided
       if (data.resumeLink && typeof data.resumeLink === 'string' && !data.resumeLink.includes("drive.google.com")) {
-        setSubmitError("If providing a resume link, please enter a valid Google Drive link");
+        setSubmitError("Please enter a valid Google Drive link for your resume");
         setIsSubmitting(false);
         return;
       }
       
       if (data.linkedinProfile && typeof data.linkedinProfile === 'string' && !data.linkedinProfile.includes("linkedin.com")) {
-        setSubmitError("If providing a LinkedIn profile, please enter a valid LinkedIn URL");
+        setSubmitError("Please enter a valid LinkedIn profile URL");
+        setIsSubmitting(false);
+        return;
+      }
+      
+      if (data.githubProfile && typeof data.githubProfile === 'string' && !data.githubProfile.includes("github.com")) {
+        setSubmitError("Please enter a valid GitHub profile URL");
         setIsSubmitting(false);
         return;
       }
@@ -269,18 +296,21 @@ export default function Careers() {
         <input type="email" {...register("srmEmail", { required: "SRM email is required" })} className="w-full p-3 border rounded-lg" />
         {errors.srmEmail && <p className="text-red-500">{errors.srmEmail.message}</p>}
 
-        {/* LinkedIn (Optional) */}
-        <label className="block text-sm font-medium">LinkedIn (Optional)</label>
+        {/* LinkedIn */}
+        <label className="block text-sm font-medium">LinkedIn {watch("year") !== "2" && "(Optional)"}</label>
         <input type="url" placeholder="https://linkedin.com/in/..." {...register("linkedinProfile")} className="w-full p-3 border rounded-lg" />
         {errors.linkedinProfile && <p className="text-red-500">{errors.linkedinProfile.message}</p>}
         <p className="text-xs text-gray-500 mt-1">
-          Leave blank if you don&apos;t have a LinkedIn profile.
+          {watch("year") === "2" ? "Required for second-year students." : "Optional for first-year students."}
         </p>
 
-        {/* GitHub (Optional) */}
-        <label className="block text-sm font-medium">GitHub (Optional)</label>
+        {/* GitHub */}
+        <label className="block text-sm font-medium">GitHub {watch("year") !== "2" && "(Optional)"}</label>
         <input type="url" placeholder="https://github.com/..." {...register("githubProfile")} className="w-full p-3 border rounded-lg" />
         {errors.githubProfile && <p className="text-red-500">{errors.githubProfile.message}</p>}
+        <p className="text-xs text-gray-500 mt-1">
+          {watch("year") === "2" ? "Required for second-year students." : "Optional for first-year students."}
+        </p>
 
         {/* Other Links (Optional) */}
         <label className="block text-sm font-medium">Other Links (Optional)</label>
@@ -324,8 +354,8 @@ export default function Careers() {
         <textarea {...register("priorActivities", { required: "Please describe your prior activities" })} className="w-full p-3 border rounded-lg" />
         {errors.priorActivities && <p className="text-red-500">{errors.priorActivities.message}</p>}
 
-        {/* Resume Link (Optional) */}
-        <label className="block text-sm font-medium">Resume Link/Works related to domain (Google Drive) (Optional)</label>
+        {/* Resume Link */}
+        <label className="block text-sm font-medium">Resume Link/Works related to domain (Google Drive) {watch("year") !== "2" && "(Optional)"}</label>
         <input 
           type="url" 
           placeholder="https://drive.google.com/..." 
@@ -339,7 +369,10 @@ export default function Careers() {
         />
         {errors.resumeLink && <p className="text-red-500">{errors.resumeLink.message}</p>}
         <p className="text-xs text-gray-500 mt-1">
-          Optional: If you have a resume, upload it to Google Drive, make it accessible to anyone with the link, and paste the link here. If you are applying for design or video editing, make sure you add related works in the Google Drive link for the same.
+          {watch("year") === "2" 
+            ? "Required for second-year students. Upload to Google Drive, make it accessible to anyone with the link, and paste the link here."
+            : "Optional for first-year students. If you have a resume, upload it to Google Drive, make it accessible to anyone with the link, and paste the link here."} 
+          If you are applying for design or video editing, make sure you add related works in the Google Drive link for the same.
         </p>
 
         {/* Submit Button */}
