@@ -38,25 +38,27 @@ export default function Careers() {
       const defaultLinkedInURL = "https://linkedin.com/in/not-provided";
       const defaultResumeLink = "https://drive.google.com/not-provided";
       
-      // For second year students, make LinkedIn, GitHub and resume links mandatory
-      if (data.year === "2") {
+      // LinkedIn and GitHub profiles are mandatory for technical domain regardless of year
+      // Form validation with react-hook-form should handle this, but we'll double-check here
+      if (data.domain === "technical") {
         if (!data.linkedinProfile || data.linkedinProfile.trim() === "") {
-          setSubmitError("LinkedIn profile is required for second-year students");
+          setSubmitError("LinkedIn profile is required for technical domain");
           setIsSubmitting(false);
           return;
         }
         
         if (!data.githubProfile || data.githubProfile.trim() === "") {
-          setSubmitError("GitHub profile is required for second-year students");
+          setSubmitError("GitHub profile is required for technical domain");
           setIsSubmitting(false);
           return;
         }
-        
-        if (!data.resumeLink || data.resumeLink.trim() === "") {
-          setSubmitError("Resume link is required for second-year students");
-          setIsSubmitting(false);
-          return;
-        }
+      }
+      
+      // Resume link is required for all second-year students regardless of domain
+      if (data.year === "2" && (!data.resumeLink || data.resumeLink.trim() === "")) {
+        setSubmitError("Resume link is required for second-year students");
+        setIsSubmitting(false);
+        return;
       }
       
       // Validate format of fields if provided
@@ -297,19 +299,37 @@ export default function Careers() {
         {errors.srmEmail && <p className="text-red-500">{errors.srmEmail.message}</p>}
 
         {/* LinkedIn */}
-        <label className="block text-sm font-medium">LinkedIn {watch("year") !== "2" && "(Optional)"}</label>
-        <input type="url" placeholder="https://linkedin.com/in/..." {...register("linkedinProfile")} className="w-full p-3 border rounded-lg" />
+        <label className="block text-sm font-medium">
+          LinkedIn {watch("domain") === "technical" ? " *" : " (Optional)"}
+        </label>
+        <input 
+          type="url" 
+          placeholder="https://linkedin.com/in/..." 
+          {...register("linkedinProfile", {
+            required: watch("domain") === "technical" ? "LinkedIn profile is required for technical domain" : false
+          })} 
+          className="w-full p-3 border rounded-lg" 
+        />
         {errors.linkedinProfile && <p className="text-red-500">{errors.linkedinProfile.message}</p>}
         <p className="text-xs text-gray-500 mt-1">
-          {watch("year") === "2" ? "Required for second-year students." : "Optional for first-year students."}
+          {watch("domain") === "technical" && "Required for technical domain."}
         </p>
 
         {/* GitHub */}
-        <label className="block text-sm font-medium">GitHub {watch("year") !== "2" && "(Optional)"}</label>
-        <input type="url" placeholder="https://github.com/..." {...register("githubProfile")} className="w-full p-3 border rounded-lg" />
+        <label className="block text-sm font-medium">
+          GitHub {watch("domain") === "technical" ? " *" : " (Optional)"}
+        </label>
+        <input 
+          type="url" 
+          placeholder="https://github.com/..." 
+          {...register("githubProfile", {
+            required: watch("domain") === "technical" ? "GitHub profile is required for technical domain" : false
+          })} 
+          className="w-full p-3 border rounded-lg" 
+        />
         {errors.githubProfile && <p className="text-red-500">{errors.githubProfile.message}</p>}
         <p className="text-xs text-gray-500 mt-1">
-          {watch("year") === "2" ? "Required for second-year students." : "Optional for first-year students."}
+          {watch("domain") === "technical" && "Required for technical domain."}
         </p>
 
         {/* Other Links (Optional) */}
@@ -371,8 +391,13 @@ export default function Careers() {
         <p className="text-xs text-gray-500 mt-1">
           {watch("year") === "2" 
             ? "Required for second-year students. Upload to Google Drive, make it accessible to anyone with the link, and paste the link here."
-            : "Optional for first-year students. If you have a resume, upload it to Google Drive, make it accessible to anyone with the link, and paste the link here."} 
-          If you are applying for design or video editing, make sure you add related works in the Google Drive link for the same.
+            : "If you have a resume, please upload it to Google Drive, set the access to Anyone with the link and share the link here. If you are applying for  designing or video editing position, be sure to include your related work samples in the same Drive folder before sharing the link."
+          }
+        </p>
+        
+        {/* Contact Information */}
+        <p className="text-xs text-gray-500 mt-4 text-center">
+          In case of any issues with the form, please contact: 9710717142
         </p>
 
         {/* Submit Button */}
