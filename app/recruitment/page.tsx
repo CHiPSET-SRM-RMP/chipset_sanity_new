@@ -20,6 +20,7 @@ interface FormData {
   subdomain?: string; // New field for non-technical subdomains
   priorActivities: string; // Will map to "prior activities"
   resumeLink?: string; // Now optional, will map to "resume link"
+  instagramFollow: boolean; // Must follow Instagram
 }
 
 export default function Careers() {
@@ -165,13 +166,17 @@ export default function Careers() {
       let errorMessage = "Unknown error occurred";
       
       if (error instanceof TypeError && error.message.includes("fetch")) {
-        errorMessage = "Network error: Please check your internet connection and try again";
+        errorMessage = "Network error: Please check your internet connection and try again.";
+        // Add contact instruction for persistent issues
+        errorMessage += " If this persists, please contact 9710717142.";
       } else if (error instanceof Error) {
         // If it's an AbortError (timeout), provide a specific message
         if (error.name === "AbortError") {
           errorMessage = "Request timed out. The server might be experiencing high load. Please try again.";
+          errorMessage += " If this persists, please contact 9710717142.";
         } else {
-          errorMessage = error.message;
+          // For other server-side errors, append contact instruction
+          errorMessage = error.message + " If this persists, please contact 9710717142.";
         }
       }
       
@@ -398,6 +403,20 @@ export default function Careers() {
           }
         </p>
         
+        {/* Instagram Follow Checkbox */}
+        <div className="flex items-center mt-4">
+          <input
+            type="checkbox"
+            id="instagramFollow"
+            {...register("instagramFollow", { required: "You must follow our Instagram handle to proceed." })}
+            className="mr-2"
+          />
+          <label htmlFor="instagramFollow" className="text-sm">
+            I confirm that I have followed the <a href="https://www.instagram.com/chipsetsrmrmp/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">@chipsetsrmrmp</a> Instagram handle. All updates will be posted there and following is mandatory.
+          </label>
+        </div>
+        {errors.instagramFollow && <p className="text-red-500 text-xs mt-1">{errors.instagramFollow.message}</p>}
+
         {/* Contact Information */}
         <p className="text-xs text-gray-500 mt-4 text-center">
           In case of any issues with the form, please contact: 9710717142
