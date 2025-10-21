@@ -5,6 +5,8 @@ import Navbar from "@/layouts/Navbar";
 import Footer from "@/components/Reusable/Footer";
 import Script from "next/script";
 
+import { Analytics } from "@vercel/analytics/react";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -71,6 +73,9 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+
+        {/* ✅ Vercel Analytics */}
+        <Analytics />
 
         {/* ✅ Google Analytics */}
         <Script
