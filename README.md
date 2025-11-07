@@ -1,7 +1,7 @@
-Chitset - Technical Club of SRM Ramapuram
-Welcome to the official repository of Chitset, the oldest technical club of SRM Ramapuram! This project is built using Next.js, a powerful React framework for building modern web applications. Whether you're a developer, contributor, or just curious, this README will guide you through setting up and understanding the project.
+Chipset - Technical Club of SRM Ramapuram
+Welcome to the official repository of Chipset, the oldest technical club of SRM Ramapuram! This project is built using Next.js, a powerful React framework for building modern web applications. Whether you're a developer, contributor, or just curious, this README will guide you through setting up and understanding the project.
 
-About Chitset
+About Chipset
 Chitset is the pioneering technical club of SRM Ramapuram, dedicated to fostering innovation, technical expertise, and collaboration among students. With a rich history of organizing events, workshops, and competitions, Chitset continues to inspire and empower the next generation of technologists.
 
 Getting Started
