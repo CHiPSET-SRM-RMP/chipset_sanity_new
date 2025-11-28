@@ -287,7 +287,7 @@ const CGPACalculator: React.FC = () => {
           <li>✓ Enter your subject name (optional but recommended)</li>
           <li>✓ Enter the credit hours for each subject</li>
           <li>✓ Select the grade you received</li>
-          <li>✓ Click "Add Subject" to add more courses</li>
+          <li>✓ Click &quot;Add Subject&quot; to add more courses</li>
           <li>✓ Your semester GPA will be calculated automatically</li>
           <li>✓ Then add each semester GPA below to compute overall CGPA</li>
           <li>✓ Designed for SRM University grading (O, A+, A, B+, B, C, D, F)</li>
