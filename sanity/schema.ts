@@ -5,6 +5,7 @@ import gallery from './schemaTypes/gallery'
 import team from './schemaTypes/team'
 import noticeFile from './schemaTypes/noticeFile'
 import videos from './schemaTypes/videos'
+import articles from './schemaTypes/articles'
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [hero,events,team,noticeFile,gallery,videos],
+  types: [hero,events,team,noticeFile,gallery,videos,articles],
 }

@@ -51,6 +51,10 @@ const Navbar = () => {
          {
             label:"Careers",
             link: "/recruitment"
+         },
+         {
+            label:"Resources",
+            link: "/tools"
          }
 
        ]
