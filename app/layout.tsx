@@ -4,18 +4,18 @@ import "./globals.css";
 import Navbar from "@/layouts/Navbar";
 import Footer from "@/components/Reusable/Footer";
 import Script from "next/script";
-
 import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://chipsetsrmrmp.vercel.app"),
+  metadataBase: new URL("https://chipsetsrm.vercel.app"),  // ✅ FIXED
   title: {
     default: "CHIPSET | SRM University Ramapuram",
-    template: "%s | CHIPSET SRM University Ramapuram"
+    template: "%s | CHIPSET SRM University Ramapuram",
   },
-  description: "Official website of CHIPSET, the technical club of SRM University Ramapuram. Get updates, events, recruitment, and more.",
+  description:
+    "Official website of CHIPSET, the technical club of SRM University Ramapuram. Get updates, events, recruitment, and more.",
   keywords: [
     "chipset",
     "SRM University Ramapuram",
@@ -25,38 +25,47 @@ export const metadata: Metadata = {
     "events",
     "srm",
     "coding",
-    "technology"
+    "technology",
   ],
+
+  // ✅ Google Verification inside metadata (RECOMMENDED WAY)
+  verification: {
+    google: "C4iB6CbG_q5hRMd0VkPlhScF1MY5KFB-BthH5J-AS7E",
+  },
+
   openGraph: {
     title: "CHIPSET | SRM University Ramapuram",
-    description: "Official website of CHIPSET, the technical club of SRM University Ramapuram. Get updates, events, recruitment, and more.",
-    url: "https://chipsetsrm.vercel.app/",
+    description:
+      "Official website of CHIPSET, the technical club of SRM University Ramapuram. Get updates, events, recruitment, and more.",
+    url: "https://chipsetsrm.vercel.app",
     siteName: "CHIPSET SRM University Ramapuram",
     images: [
       {
         url: "/favicon.ico",
         width: 64,
         height: 64,
-        alt: "CHIPSET Logo"
-      }
+        alt: "CHIPSET Logo",
+      },
     ],
     locale: "en_US",
-    type: "website"
+    type: "website",
   },
+
   robots: {
     index: true,
     follow: true,
     googleBot: {
       index: true,
       follow: true,
-      'max-snippet': -1,
-      'max-image-preview': 'large',
-      'max-video-preview': -1
-    }
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
   },
+
   alternates: {
-    canonical: "https://chipsetsrm.vercel.app/"
-  }
+    canonical: "https://chipsetsrm.vercel.app",
+  },
 };
 
 export default function RootLayout({
@@ -69,15 +78,16 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
+
       <body className={inter.className}>
         <Navbar />
         {children}
         <Footer />
 
-        {/* ✅ Vercel Analytics */}
+        {/* Analytics */}
         <Analytics />
 
-        {/* ✅ Google Analytics */}
+        {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-90LSQWVPVQ"
           strategy="afterInteractive"
