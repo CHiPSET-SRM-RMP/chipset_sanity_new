@@ -45,7 +45,7 @@ const ArticlesList: React.FC = () => {
     const matchesSearch =
       article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       article.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      article.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+      (article.tags && article.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase())));
 
     return matchesSearch;
   });
@@ -103,11 +103,10 @@ const ArticlesList: React.FC = () => {
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setSelectedCategory(null)}
-              className={`px-4 py-2 rounded-full font-semibold transition ${
-                selectedCategory === null
+              className={`px-4 py-2 rounded-full font-semibold transition ${selectedCategory === null
                   ? "bg-blue-600 text-white"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-              }`}
+                }`}
             >
               All Articles
             </button>
@@ -200,8 +199,8 @@ const ArticlesList: React.FC = () => {
         <div className="bg-blue-50 border-l-4 border-blue-600 rounded-lg p-6 mb-8">
           <h3 className="text-lg font-bold text-gray-800 mb-3">📚 About Our Articles</h3>
           <p className="text-gray-700 mb-3">
-            Our tech articles cover a wide range of topics including web development, programming languages, 
-            frameworks, and best practices. Each article is carefully curated to help you stay updated with 
+            Our tech articles cover a wide range of topics including web development, programming languages,
+            frameworks, and best practices. Each article is carefully curated to help you stay updated with
             the latest trends and technologies in the tech industry.
           </p>
           <p className="text-gray-600">

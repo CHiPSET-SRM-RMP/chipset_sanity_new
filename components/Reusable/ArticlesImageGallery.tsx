@@ -45,7 +45,7 @@ const ArticlesImageGallery: React.FC = () => {
     const matchesSearch =
       article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       article.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      article.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+      (article.tags && article.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase())));
 
     return matchesSearch;
   });
@@ -317,11 +317,10 @@ const ArticlesImageGallery: React.FC = () => {
                         <button
                           key={idx}
                           onClick={() => setCurrentImageIndex(idx)}
-                          className={`flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-lg overflow-hidden border transition shadow-sm ${
-                            idx === currentImageIndex
+                          className={`flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-lg overflow-hidden border transition shadow-sm ${idx === currentImageIndex
                               ? "border-blue-500 shadow-[0_0_0_1px_rgba(59,130,246,0.7)]"
                               : "border-slate-700 hover:border-slate-400/90"
-                          }`}
+                            }`}
                         >
                           <img
                             src={image.url || ""}
