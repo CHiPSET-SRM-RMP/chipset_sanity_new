@@ -76,6 +76,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scrollbar-none overflow-y-scroll">
       <head>
+        <meta name="google-site-verification" content="C4iB6CbG_q5hRMd0VkPlhScF1MY5KFB-BthH5J-AS7E" />
         <link rel="icon" href="/favicon.ico" />
       </head>
 
