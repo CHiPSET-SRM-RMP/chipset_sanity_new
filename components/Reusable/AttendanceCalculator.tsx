@@ -660,7 +660,7 @@ const AttendanceCalculator: React.FC = () => {
                                                 <>
                                                     <p className="text-xs font-semibold text-gray-600 uppercase mb-1">Impossible</p>
                                                     <p className="text-xl font-bold text-red-700">❌</p>
-                                                    <p className="text-xs text-gray-500 mt-1">Can't reach 75%</p>
+                                                    <p className="text-xs text-gray-500 mt-1">Can&apos;t reach 75%</p>
                                                 </>
                                             )}
                                         </div>
@@ -683,7 +683,7 @@ const AttendanceCalculator: React.FC = () => {
                                                 <>
                                                     <p className="text-xs font-semibold text-gray-600 uppercase mb-1">Impossible</p>
                                                     <p className="text-xl font-bold text-red-700">❌</p>
-                                                    <p className="text-xs text-gray-500 mt-1">Can't reach 90%</p>
+                                                    <p className="text-xs text-gray-500 mt-1">Can&apos;t reach 90%</p>
                                                 </>
                                             )}
                                         </div>
