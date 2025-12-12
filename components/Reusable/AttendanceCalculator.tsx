@@ -6,8 +6,9 @@ import { Trash2, Plus, Search } from "lucide-react";
 interface Subject {
     id: string;
     name: string;
-    totalHours: number;
-    attendedHours: number;
+    totalCourseHours: number;  // Total hours for entire semester
+    hoursHappened: number;      // Hours that have occurred so far
+    attendedHours: number;      // Hours you actually attended
 }
 
 const predefinedSubjects = [
@@ -24,7 +25,7 @@ const predefinedSubjects = [
     { name: "Fundamentals of Economics", hours: 45 },          // L=3 T=0 P=0 C=3
     { name: "Fundamentals of Management", hours: 45 },         // L=3 T=0 P=0 C=3
     { name: "Basics of Accounting and Costing", hours: 45 },   // L=2 T=1 P=0 C=3
-    
+
     // Basic Science Courses
     { name: "Introduction to Computational Biology", hours: 30 },  // L=2 T=0 P=0 C=2
     { name: "Biology", hours: 30 },                            // L=2 T=0 P=0 C=2
@@ -37,7 +38,7 @@ const predefinedSubjects = [
     { name: "Semiconductor Physics and Computational Methods", hours: 90 },  // L=3 T=1 P=2 C=5
     { name: "Physics: Mechanics", hours: 90 },                 // L=3 T=1 P=2 C=5
     { name: "Chemistry", hours: 90 },                          // L=3 T=1 P=2 C=5
-    
+
     // Non Credit Courses
     { name: "Environmental Science", hours: 15 },              // L=1 T=0 P=0 C=0
     { name: "Constitution of India", hours: 15 },              // L=1 T=0 P=0 C=0
@@ -47,7 +48,7 @@ const predefinedSubjects = [
     { name: "Physical and Mental Health using Yoga", hours: 30 },  // L=0 T=0 P=2 C=0
     { name: "National Service Scheme", hours: 30 },            // L=0 T=0 P=2 C=0
     { name: "National Cadet Corps", hours: 30 },               // L=0 T=0 P=2 C=0
-    
+
     // Engineering Science Courses (First Year)
     { name: "Programming for Problem Solving", hours: 75 },    // L=3 T=0 P=2 C=4
     { name: "Electrical and Electronics Engineering", hours: 60 },  // L=3 T=1 P=0 C=4
@@ -57,7 +58,7 @@ const predefinedSubjects = [
     { name: "Applied Engineering Mechanics", hours: 45 },      // L=3 T=0 P=0 C=3
     { name: "Artifact Dissection Laboratory", hours: 30 },     // L=0 T=0 P=2 C=1
     { name: "Foundation of Data Analysis", hours: 60 },        // L=2 T=0 P=2 C=3
-    
+
     // Professional Core Courses (First Year)
     { name: "Biochemistry", hours: 45 },                       // L=3 T=0 P=0 C=3
     { name: "Biomedical Sensors", hours: 60 },                 // L=2 T=0 P=2 C=3
@@ -71,12 +72,12 @@ const predefinedSubjects = [
     { name: "Elements of Mechatronics Systems", hours: 45 },   // L=2 T=1 P=0 C=3
     { name: "Nanoscience and Nanotechnology", hours: 45 },     // L=3 T=0 P=0 C=3
     { name: "Physics of Materials", hours: 45 },               // L=3 T=0 P=0 C=3
-    
+
     // Bridge Courses (Lateral Entry)
     { name: "Mathematics (LE)", hours: 60 },                   // L=3 T=1 P=0 C=4
     { name: "Engineering Physics (LE)", hours: 30 },           // L=2 T=0 P=0 C=2
     { name: "Chemistry (LE)", hours: 30 },                     // L=2 T=0 P=0 C=2
-    
+
     // ============= HIGHER SEMESTER CSE COURSES =============
     // Professional Core Courses
     { name: "Computer Organization and Architecture", hours: 60 },
@@ -102,7 +103,7 @@ const predefinedSubjects = [
     { name: "Cloud Computing for IoT", hours: 75 },
     { name: "Fog Computing", hours: 75 },
     { name: "Blockchain using Cryptography", hours: 45 },
-    
+
     // Professional Elective Courses - CSE
     { name: "Digital Image Processing", hours: 45 },
     { name: "Biometrics", hours: 45 },
@@ -132,7 +133,7 @@ const predefinedSubjects = [
     { name: "Wireless and Mobile Communication", hours: 45 },
     { name: "Wireless Sensor Networks", hours: 45 },
     { name: "Network Protocols and Algorithms", hours: 45 },
-    
+
     // AIML Courses
     { name: "Report Writing", hours: 30 },
     { name: "Programming in Java", hours: 45 },
@@ -158,7 +159,7 @@ const predefinedSubjects = [
     { name: "Reinforcement Learning Techniques", hours: 45 },
     { name: "Cyber Physical Systems", hours: 45 },
     { name: "Business Intelligence and Analytics", hours: 45 },
-    
+
     // Software Engineering Courses
     { name: "Software Measurements and Metrics", hours: 45 },
     { name: "Software Verification and Validation", hours: 45 },
@@ -176,7 +177,7 @@ const predefinedSubjects = [
     { name: "Deep Learning", hours: 45 },
     { name: "Gaming and Virtual Reality", hours: 45 },
     { name: "Smartphone Computing and its Applications", hours: 45 },
-    
+
     // Cloud Computing Courses
     { name: "Fundamentals of Cloud Computing", hours: 45 },
     { name: "Communication Systems Engineering", hours: 45 },
@@ -190,7 +191,7 @@ const predefinedSubjects = [
     { name: "Fog Computing Analytics", hours: 45 },
     { name: "Cloud Application Development", hours: 45 },
     { name: "Network Design and Management", hours: 45 },
-    
+
     // Computer Networks Courses
     { name: "Distributed Operating Systems", hours: 45 },
     { name: "Pervasive Computing", hours: 45 },
@@ -199,7 +200,7 @@ const predefinedSubjects = [
     { name: "Optical Networks", hours: 45 },
     { name: "Principles Of Cloud Computing", hours: 45 },
     { name: "Network Security", hours: 45 },
-    
+
     // Cyber Security Courses
     { name: "Check Point System Administration", hours: 75 },
     { name: "Cryptography and Network Security", hours: 45 },
@@ -221,7 +222,7 @@ const predefinedSubjects = [
     { name: "Windows and Linux Internals", hours: 75 },
     { name: "Cyber Crime and Digital Forensics", hours: 45 },
     { name: "Cyber Crimes and Cyber Security", hours: 45 },
-    
+
     // IT Courses
     { name: "Statistics for Machine Learning", hours: 45 },
     { name: "Quantum Computation", hours: 75 },
@@ -231,7 +232,7 @@ const predefinedSubjects = [
     { name: "Cloud Native Architecture for Modern Platforms", hours: 45 },
     { name: "Fault Tolerant Systems", hours: 45 },
     { name: "Image and Video Processing", hours: 45 },
-    
+
     // IoT Courses
     { name: "Introduction to IoT: Sensors, Actuators and Microcontrollers", hours: 45 },
     { name: "Introduction to Embedded Programming and Embedded OS", hours: 45 },
@@ -251,7 +252,7 @@ const predefinedSubjects = [
     { name: "Full Stack Development for IoT", hours: 75 },
     { name: "Deep Learning for IoT", hours: 45 },
     { name: "IoT Privacy", hours: 45 },
-    
+
     // Blockchain Courses
     { name: "Fundamentals of Blockchain", hours: 45 },
     { name: "IoT and Blockchain", hours: 45 },
@@ -273,7 +274,7 @@ const predefinedSubjects = [
     { name: "Bitcoin Essentials and Use Cases", hours: 45 },
     { name: "Decentralized Applications on Blockchain", hours: 45 },
     { name: "Web Security", hours: 45 },
-    
+
     // Gaming Courses
     { name: "Software Engineering Perspectives in Computer Game Development", hours: 75 },
     { name: "Deep Learning in Gaming and Application", hours: 45 },
@@ -297,7 +298,7 @@ const predefinedSubjects = [
     { name: "Applied Gamification", hours: 45 },
     { name: "Metaverse Fundamentals", hours: 45 },
     { name: "Digital Marketing and Publishing", hours: 45 },
-    
+
     // Data Science Courses
     { name: "Fundamentals of Data Science", hours: 45 },
     { name: "Full Stack Development", hours: 45 },
@@ -321,7 +322,7 @@ const predefinedSubjects = [
     { name: "Robot Motion Planning", hours: 45 },
     { name: "Bio-Inspired Computing and Fuzzy Logic", hours: 45 },
     { name: "Risk Analytics", hours: 45 },
-    
+
     // M.Tech Integrated Courses
     { name: "Computer Graphics and Vision", hours: 45 },
     { name: "Computation and Cognition: The Probabilistic Approach", hours: 75 },
@@ -373,9 +374,9 @@ const AttendanceCalculator: React.FC = () => {
         subject.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    const addSubject = (name: string, totalHours: number) => {
+    const addSubject = (name: string, totalCourseHours: number) => {
         const newId = (Math.max(...subjects.map((s) => parseInt(s.id)), 0) + 1).toString();
-        setSubjects([...subjects, { id: newId, name, totalHours, attendedHours: 0 }]);
+        setSubjects([...subjects, { id: newId, name, totalCourseHours, hoursHappened: 0, attendedHours: 0 }]);
         setSearchTerm("");
         setShowDropdown(false);
         setCustomMode(false);
@@ -393,9 +394,9 @@ const AttendanceCalculator: React.FC = () => {
         setSubjects(subjects.filter((s) => s.id !== id));
     };
 
-    const updateSubject = (id: string, attendedHours: number) => {
+    const updateSubject = (id: string, field: 'hoursHappened' | 'attendedHours', value: number) => {
         setSubjects(
-            subjects.map((s) => (s.id === id ? { ...s, attendedHours } : s))
+            subjects.map((s) => (s.id === id ? { ...s, [field]: value } : s))
         );
     };
 
@@ -404,28 +405,58 @@ const AttendanceCalculator: React.FC = () => {
         return ((attended / total) * 100).toFixed(2);
     };
 
-    const calculateCanMiss = (attended: number, total: number, targetPercent: number) => {
-        // Formula: (attended - targetPercent * total) / (targetPercent - 1)
-        // But we need to account for future classes
-        // attended / (total + x) = targetPercent/100
-        // attended = targetPercent/100 * (total + x)
-        // attended = (targetPercent * total)/100 + (targetPercent * x)/100
-        // attended - (targetPercent * total)/100 = (targetPercent * x)/100
-        // (attended - (targetPercent * total)/100) * 100 / targetPercent = x
+    const calculateCanMiss = (attended: number, happened: number, totalCourse: number, targetPercent: number) => {
+        // Calculate how many of the REMAINING classes can be missed
+        // Final attendance will be: attended / totalCourse
+        // We want: attended / totalCourse >= targetPercent / 100
+        // 
+        // Remaining hours = totalCourse - happened
+        // If we miss X of the remaining hours:
+        // - Final attended = attended + (remaining - X)
+        // - Final total = totalCourse
+        // We want: (attended + remaining - X) / totalCourse >= targetPercent / 100
+        // 
+        // Solving for X:
+        // attended + remaining - X >= (targetPercent * totalCourse) / 100
+        // remaining - X >= (targetPercent * totalCourse) / 100 - attended
+        // -X >= (targetPercent * totalCourse) / 100 - attended - remaining
+        // X <= remaining - (targetPercent * totalCourse) / 100 + attended
+        // X <= attended + remaining - (targetPercent * totalCourse) / 100
 
-        const currentPercent = (attended / total) * 100;
-        if (currentPercent < targetPercent) {
-            return 0; // Already below target
+        const remaining = totalCourse - happened;
+        const requiredAttendance = (targetPercent * totalCourse) / 100;
+        const canMiss = Math.floor(attended + remaining - requiredAttendance);
+
+        return Math.max(0, Math.min(canMiss, remaining)); // Can't miss more than what's remaining
+    };
+
+    const calculateNeedToAttend = (attended: number, happened: number, totalCourse: number, targetPercent: number) => {
+        // Calculate how many of the REMAINING classes must be attended
+        // Final attendance will be: (attended + X) / totalCourse
+        // We want: (attended + X) / totalCourse >= targetPercent / 100
+        //
+        // Solving for X:
+        // attended + X >= (targetPercent * totalCourse) / 100
+        // X >= (targetPercent * totalCourse) / 100 - attended
+
+        const remaining = totalCourse - happened;
+        const requiredAttendance = (targetPercent * totalCourse) / 100;
+        const needToAttend = Math.ceil(requiredAttendance - attended);
+
+        if (needToAttend <= 0) {
+            return 0; // Already at or above target
         }
 
-        // How many can miss: (attended - target% of total) / (target% / 100)
-        const canMiss = Math.floor((attended - (targetPercent * total) / 100) / (targetPercent / 100));
-        return Math.max(0, canMiss);
+        if (needToAttend > remaining) {
+            return -1; // Impossible to reach target even if attending all remaining classes
+        }
+
+        return needToAttend;
     };
 
     const getOverallAttendance = () => {
         const totalAttended = subjects.reduce((sum, s) => sum + s.attendedHours, 0);
-        const totalHours = subjects.reduce((sum, s) => sum + s.totalHours, 0);
+        const totalHours = subjects.reduce((sum, s) => sum + s.totalCourseHours, 0);
         return calculateAttendance(totalAttended, totalHours);
     };
 
@@ -541,10 +572,13 @@ const AttendanceCalculator: React.FC = () => {
                 {subjects.length > 0 && (
                     <div className="space-y-4 mb-6">
                         {subjects.map((subject) => {
-                            const attendance = calculateAttendance(subject.attendedHours, subject.totalHours);
-                            const canMiss75 = calculateCanMiss(subject.attendedHours, subject.totalHours, 75);
-                            const canMiss90 = calculateCanMiss(subject.attendedHours, subject.totalHours, 90);
+                            const attendance = calculateAttendance(subject.attendedHours, subject.hoursHappened);
+                            const canMiss75 = calculateCanMiss(subject.attendedHours, subject.hoursHappened, subject.totalCourseHours, 75);
+                            const canMiss90 = calculateCanMiss(subject.attendedHours, subject.hoursHappened, subject.totalCourseHours, 90);
+                            const needToAttend75 = calculateNeedToAttend(subject.attendedHours, subject.hoursHappened, subject.totalCourseHours, 75);
+                            const needToAttend90 = calculateNeedToAttend(subject.attendedHours, subject.hoursHappened, subject.totalCourseHours, 90);
                             const attendanceNum = parseFloat(String(attendance));
+                            const remaining = subject.totalCourseHours - subject.hoursHappened;
 
                             return (
                                 <div
@@ -554,7 +588,7 @@ const AttendanceCalculator: React.FC = () => {
                                     <div className="flex justify-between items-start mb-4">
                                         <div className="flex-1">
                                             <h3 className="font-bold text-gray-900 text-lg mb-1">{subject.name}</h3>
-                                            <p className="text-sm text-gray-500">Total: {subject.totalHours} hours</p>
+                                            <p className="text-sm text-gray-500">Total Course: {subject.totalCourseHours} hours | Remaining: {remaining} hours</p>
                                         </div>
                                         <button
                                             onClick={() => removeSubject(subject.id)}
@@ -564,44 +598,94 @@ const AttendanceCalculator: React.FC = () => {
                                         </button>
                                     </div>
 
-                                    <div className="mb-4">
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                            Hours Attended
-                                        </label>
-                                        <input
-                                            type="number"
-                                            value={subject.attendedHours || ''}
-                                            onChange={(e) => updateSubject(subject.id, parseFloat(e.target.value) || 0)}
-                                            placeholder="Enter hours attended"
-                                            min="0"
-                                            max={subject.totalHours}
-                                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f39e2f] focus:border-transparent transition-all"
-                                        />
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                        <div>
+                                            <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                                Hours Happened So Far
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={subject.hoursHappened || ''}
+                                                onChange={(e) => updateSubject(subject.id, 'hoursHappened', parseFloat(e.target.value) || 0)}
+                                                placeholder="Classes that occurred"
+                                                min="0"
+                                                max={subject.totalCourseHours}
+                                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f39e2f] focus:border-transparent transition-all"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                                Hours You Attended
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={subject.attendedHours || ''}
+                                                onChange={(e) => updateSubject(subject.id, 'attendedHours', parseFloat(e.target.value) || 0)}
+                                                placeholder="Classes you attended"
+                                                min="0"
+                                                max={subject.hoursHappened}
+                                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f39e2f] focus:border-transparent transition-all"
+                                            />
+                                        </div>
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                         {/* Current Attendance */}
                                         <div className={`p-4 rounded-xl ${attendanceNum >= 90 ? 'bg-green-50 border-2 border-green-200' :
-                                                attendanceNum >= 75 ? 'bg-yellow-50 border-2 border-yellow-200' :
-                                                    'bg-red-50 border-2 border-red-200'
+                                            attendanceNum >= 75 ? 'bg-yellow-50 border-2 border-yellow-200' :
+                                                'bg-red-50 border-2 border-red-200'
                                             }`}>
                                             <p className="text-xs font-semibold text-gray-600 uppercase mb-1">Current</p>
                                             <p className={`text-2xl font-bold ${attendanceNum >= 90 ? 'text-green-700' :
-                                                    attendanceNum >= 75 ? 'text-yellow-700' :
-                                                        'text-red-700'
+                                                attendanceNum >= 75 ? 'text-yellow-700' :
+                                                    'text-red-700'
                                                 }`}>{attendance}%</p>
                                         </div>
 
-                                        {/* Can Miss for 75% */}
+                                        {/* 75% Target */}
                                         <div className="p-4 rounded-xl bg-gradient-to-br from-white to-orange-50 border-2 border-orange-200">
-                                            <p className="text-xs font-semibold text-gray-600 uppercase mb-1">Can Miss (75%)</p>
-                                            <p className="text-2xl font-bold text-orange-600">{canMiss75}h</p>
+                                            {canMiss75 > 0 ? (
+                                                <>
+                                                    <p className="text-xs font-semibold text-gray-600 uppercase mb-1">Can Miss (75%)</p>
+                                                    <p className="text-2xl font-bold text-orange-600">{canMiss75}h</p>
+                                                    <p className="text-xs text-gray-500 mt-1">of remaining</p>
+                                                </>
+                                            ) : canMiss75 === 0 ? (
+                                                <>
+                                                    <p className="text-xs font-semibold text-gray-600 uppercase mb-1">Can Miss (75%)</p>
+                                                    <p className="text-2xl font-bold text-red-600">0h</p>
+                                                    <p className="text-xs text-gray-500 mt-1">Attend all remaining</p>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <p className="text-xs font-semibold text-gray-600 uppercase mb-1">Impossible</p>
+                                                    <p className="text-xl font-bold text-red-700">❌</p>
+                                                    <p className="text-xs text-gray-500 mt-1">Can't reach 75%</p>
+                                                </>
+                                            )}
                                         </div>
 
-                                        {/* Can Miss for 90% */}
+                                        {/* 90% Target */}
                                         <div className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50 border-2 border-gray-200">
-                                            <p className="text-xs font-semibold text-gray-600 uppercase mb-1">Can Miss (90%)</p>
-                                            <p className="text-2xl font-bold text-gray-600">{canMiss90}h</p>
+                                            {canMiss90 > 0 ? (
+                                                <>
+                                                    <p className="text-xs font-semibold text-gray-600 uppercase mb-1">Can Miss (90%)</p>
+                                                    <p className="text-2xl font-bold text-gray-600">{canMiss90}h</p>
+                                                    <p className="text-xs text-gray-500 mt-1">of remaining</p>
+                                                </>
+                                            ) : canMiss90 === 0 ? (
+                                                <>
+                                                    <p className="text-xs font-semibold text-gray-600 uppercase mb-1">Can Miss (90%)</p>
+                                                    <p className="text-2xl font-bold text-red-600">0h</p>
+                                                    <p className="text-xs text-gray-500 mt-1">Attend all remaining</p>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <p className="text-xs font-semibold text-gray-600 uppercase mb-1">Impossible</p>
+                                                    <p className="text-xl font-bold text-red-700">❌</p>
+                                                    <p className="text-xs text-gray-500 mt-1">Can't reach 90%</p>
+                                                </>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -627,6 +711,13 @@ const AttendanceCalculator: React.FC = () => {
                         <p className="text-sm mt-2">Search and add subjects to start tracking attendance.</p>
                     </div>
                 )}
+
+                {/* Disclaimer */}
+                <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
+                    <p className="text-xs text-gray-600 text-center">
+                        ⚠️ <span className="font-semibold">Beta Version:</span> Hours specified for each subject are taken from the syllabus and not verified. Inaccuracies may occur.
+                    </p>
+                </div>
             </div>
         </div>
     );
