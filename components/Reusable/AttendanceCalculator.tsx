@@ -456,8 +456,8 @@ const AttendanceCalculator: React.FC = () => {
 
     const getOverallAttendance = () => {
         const totalAttended = subjects.reduce((sum, s) => sum + s.attendedHours, 0);
-        const totalHours = subjects.reduce((sum, s) => sum + s.totalCourseHours, 0);
-        return calculateAttendance(totalAttended, totalHours);
+        const totalHappened = subjects.reduce((sum, s) => sum + s.hoursHappened, 0);
+        return calculateAttendance(totalAttended, totalHappened);
     };
 
     return (
