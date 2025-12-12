@@ -23,6 +23,19 @@ export default function ToolsIndexPage() {
           </Link>
 
           <Link
+            href="/tools/attendance-calculator"
+            className="block rounded-xl border border-slate-200 bg-white px-5 py-4 shadow-sm hover:shadow-md hover:border-[#f39e2f] transition flex items-center justify-between"
+          >
+            <div>
+              <h2 className="font-semibold text-slate-900">Attendance Calculator</h2>
+              <p className="text-xs md:text-sm text-slate-600 mt-1">
+                Track your attendance and see how many hours you can miss for 75% or 90%.
+              </p>
+            </div>
+            <span className="text-xs md:text-sm font-medium text-[#f39e2f]">Open</span>
+          </Link>
+
+          <Link
             href="/tools/articles"
             className="block rounded-xl border border-slate-200 bg-white px-5 py-4 shadow-sm hover:shadow-md hover:border-[#f39e2f] transition flex items-center justify-between"
           >

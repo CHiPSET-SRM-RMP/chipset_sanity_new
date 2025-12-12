@@ -15,6 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         '/recruitment/',
         '/team/',
         '/tools/',
+        '/tools/attendance-calculator/',
         '/tools/cgpa-calculator/',
         '/tools/articles/',
     ]
