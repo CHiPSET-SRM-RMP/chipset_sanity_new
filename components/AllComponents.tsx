@@ -9,6 +9,7 @@ import { Event, Hero } from '@/app/page'
 import { Herolanding } from './Landing/Hero'
 import Analytics from './Landing/Analytics'
 import PageLoader from './Reusable/PageLoader'
+import AlumniSlide from './Landing/AlumniSlide'
 
 const AllComponents = ({slideshow,events}:{slideshow:Hero[] , events:Event[]}) => {
     useEffect(() => {
@@ -26,6 +27,7 @@ const AllComponents = ({slideshow,events}:{slideshow:Hero[] , events:Event[]}) =
           <Macbook/>
         </div>
         <AboutLanding/>
+        <AlumniSlide/>
         <div className='md:hidden'>
           <Macbook/>
         </div>
