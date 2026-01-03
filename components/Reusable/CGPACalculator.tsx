@@ -200,9 +200,12 @@ const CGPACalculator: React.FC = () => {
 
         {/* Semester Selection */}
         <div className="bg-gradient-to-br from-white to-blue-50 rounded-xl p-6 mb-8 shadow-lg border border-blue-200/70">
-          <h2 className="text-lg font-bold text-gray-900 mb-5 flex items-center">
-            <span className="w-1.5 h-6 bg-gradient-to-b from-[#f39e2f] to-orange-500 rounded-full mr-3"></span>
-            Select Your Year
+          <h2 className="text-lg font-bold text-gray-900 mb-5 flex items-center justify-between">
+            <span className="flex items-center">
+              <span className="w-1.5 h-6 bg-gradient-to-b from-[#f39e2f] to-orange-500 rounded-full mr-3"></span>
+              Select Your Year
+            </span>
+            <span className="text-xs font-semibold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">Optional</span>
           </h2>
           <div className="grid grid-cols-2 gap-3">
             {[

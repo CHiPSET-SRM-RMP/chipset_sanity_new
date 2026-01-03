@@ -16,25 +16,30 @@ const AlumniSlide = () => {
     { name: "Commonwealth Bank", logo: "https://logos-world.net/wp-content/uploads/2021/03/Commonwealth-Bank-Symbol.png" },
     { name: "Twilio", logo: "https://w7.pngwing.com/pngs/172/286/png-transparent-twilio-hd-logo.png" },
     { name: "Optum", logo: "https://cdn.freelogovectors.net/wp-content/uploads/2024/03/optum-logo-freelogovectors.net_.png" },
+    { name: "Barclays", logo: "https://logos-world.net/wp-content/uploads/2021/08/Barclays-Symbol.png" },
+    { name: "NatWest", logo: "https://tse4.mm.bing.net/th/id/OIP.Jzz33cq7hfaBBKT1RQJBLgHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" },
+    { name: "CME Group", logo: "https://logowik.com/content/uploads/images/cme-group5437.jpg" },
+    { name: "Lloyds London", logo: "https://www.vhv.rs/dpng/d/479-4799508_lloyds-london-png-transparent-png.png" },
+    { name: "KPMG", logo: "https://w7.pngwing.com/pngs/855/458/png-transparent-kpmg-inversed-logo.png" },
   ];
 
   // Duplicate array for seamless infinite scroll
   const extendedCompanies = [...companies, ...companies];
 
   return (
-    <div className="w-full bg-gradient-to-r from-white via-gray-50 to-white py-8 md:py-12 overflow-hidden">
+    <div className="w-full bg-gradient-to-r from-white via-gray-50 to-white py-1 md:py-6 overflow-hidden">
       <div className="mx-auto px-4">
-        <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8 tracking-tight">
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-4 md:mb-8 tracking-tight">
           Our Alumni Work At
         </h2>
 
         {/* Moving Container */}
         <div className="relative overflow-hidden">
-          <div className="flex gap-8 md:gap-12 animate-scroll">
+          <div className="flex gap-4 md:gap-12 animate-scroll min-w-max">
             {extendedCompanies.map((company, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center justify-center gap-2 px-6 md:px-8 py-4 rounded-lg bg-gradient-to-br from-gray-100 to-gray-50 border border-gray-200 hover:border-[#f39e2f] transition-all duration-300 hover:shadow-lg hover:shadow-[#f39e2f]/20 whitespace-nowrap flex-shrink-0 group min-w-fit"
+                className="flex flex-col items-center justify-center gap-2 px-4 md:px-8 py-3 md:py-4 rounded-lg bg-gradient-to-br from-gray-100 to-gray-50 border border-gray-200 hover:border-[#f39e2f] transition-all duration-300 hover:shadow-lg hover:shadow-[#f39e2f]/20 whitespace-nowrap flex-shrink-0 group min-w-fit"
               >
                 <div className="relative w-12 md:w-16 h-10 md:h-12 group-hover:scale-110 transition-transform duration-300">
                   <Image
