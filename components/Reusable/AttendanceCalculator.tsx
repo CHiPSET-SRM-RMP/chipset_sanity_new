@@ -34,6 +34,7 @@ const predefinedSubjects = [
     { name: "Calculus and Linear Algebra", hours: 60 },        // L=3 T=1 P=0 C=4
     { name: "Advanced Calculus and Complex Analysis", hours: 60 },  // L=3 T=1 P=0 C=4
     { name: "Probability and Statistics", hours: 60 },         // L=3 T=1 P=0 C=4
+    { name: "Probability and Queuing Theory", hours: 60 },
     { name: "Physics: Electromagnetic Theory, Quantum Mechanics, Waves and Optics", hours: 90 },  // L=3 T=1 P=2 C=5
     { name: "Semiconductor Physics and Computational Methods", hours: 90 },  // L=3 T=1 P=2 C=5
     { name: "Physics: Mechanics", hours: 90 },                 // L=3 T=1 P=2 C=5
@@ -43,6 +44,8 @@ const predefinedSubjects = [
     { name: "Environmental Science", hours: 15 },              // L=1 T=0 P=0 C=0
     { name: "Constitution of India", hours: 15 },              // L=1 T=0 P=0 C=0
     { name: "Universal Human Values", hours: 15 },             // L=1 T=0 P=0 C=0
+    { name: "UHV -2 universal human values understanding harmony and ethical human conduct", hours: 45 },
+    { name: "Critical and Creative Thinking", hours: 30 },
     { name: "Professional Skills and Practices", hours: 30 },  // L=0 T=0 P=2 C=0
     { name: "General Aptitude", hours: 30 },                   // L=0 T=0 P=2 C=0
     { name: "Physical and Mental Health using Yoga", hours: 30 },  // L=0 T=0 P=2 C=0
@@ -153,6 +156,7 @@ const predefinedSubjects = [
     { name: "Logic and Knowledge Representation", hours: 45 },
     { name: "Artificial Intelligence in Genomics and Disease Prediction", hours: 45 },
     { name: "Machine Learning in Drug Discovery", hours: 45 },
+    { name: "Artificial Intelligence", hours: 45 },
     { name: "IoT Concepts and Applications", hours: 45 },
     { name: "Fuzzy Logic and its Applications", hours: 45 },
     { name: "Robotics: Computational Motion Planning", hours: 45 },
@@ -218,6 +222,7 @@ const predefinedSubjects = [
     { name: "Operation System Security", hours: 45 },
     { name: "Cyberwarfare", hours: 45 },
     { name: "Hacker Mind: Profiling The IT Criminal", hours: 45 },
+    { name: "Social Engineering", hours: 30 },
     { name: "Mobile and Wireless Security", hours: 45 },
     { name: "Windows and Linux Internals", hours: 75 },
     { name: "Cyber Crime and Digital Forensics", hours: 45 },

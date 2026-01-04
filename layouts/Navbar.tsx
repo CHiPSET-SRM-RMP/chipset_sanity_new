@@ -68,7 +68,7 @@ const Navbar = () => {
                         <Image src="/assets/logo/64x-black-logo.png" height={100} width={100} alt='Logo' className='w-10 md:w-16 md:p-1'/>
                       </div>
                       <div className=' text-gray-950'>
-                        <p className='font-bold text-black text-[19px] md:text-[24px] lg:text-[29px]'>CH<span className='text-[#f39e2f] mix-blend-color-dodge text-pretty' >i</span>PSET</p>
+                        <p className='font-bold text-black text-[19px] md:text-[24px] lg:text-[29px]'>CH<span className='text-[#f39e2f] ' >i</span>PSET</p>
                         <p className='font-semibold uppercase text-[6px] md:text-[8px] lg:text-[10px] text-[#f39e2f] '>A Technical Community</p>
                       </div>
                     </div>
