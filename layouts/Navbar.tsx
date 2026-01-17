@@ -60,7 +60,7 @@ const Navbar = () => {
        ]
     return (
         <section id="" className="sticky top-0 z-40 bg-white-900 bg-white bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-60">
-            <header className="w-full p-4 md:px-10 py-8 lg:max-w-7xl lg:mx-auto flex items-center justify-between">
+            <header className="w-full p-4 md:px-10 py-8 flex items-center justify-between">
                 <div>
                   <Link href="/" className="flex justify-center items-center ">
                     <div className='flex'>
