@@ -80,6 +80,7 @@ const predefinedSubjects = [
     { name: "Mathematics (LE)", hours: 60 },                   // L=3 T=1 P=0 C=4
     { name: "Engineering Physics (LE)", hours: 30 },           // L=2 T=0 P=0 C=2
     { name: "Chemistry (LE)", hours: 30 },                     // L=2 T=0 P=0 C=2
+    { name: "Design Thinking and Methodology", hours: 45 },    // L=3 T=0 P=0 C=3 (Semester 3)
 
     // ============= HIGHER SEMESTER CSE COURSES =============
     // Professional Core Courses
