@@ -73,12 +73,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.7,
         },
         {
-            url: `${baseUrl}/tools/articles`,
-            lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 0.7,
-        },
-        {
             url: `${baseUrl}/tools/add-article`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
@@ -87,23 +81,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]
 
     try {
-        // Fetch all published articles from Sanity
+        // Fetch all published articles from Sanity to validate they exist
         const articles = await client.fetch<{ slug: string; _updatedAt: string }[]>(
-            `*[_type == "articles" && published == true]{ "slug": slug.current, _updatedAt }`,
+            `*[_type == "articles" && (published == true || published == null)]{ "slug": slug.current, _updatedAt }`,
             {},
             { next: { revalidate: 3600 } }
         )
 
-        // Generate dynamic article entries
-        const articleEntries: MetadataRoute.Sitemap = articles.map((article) => ({
-            url: `${baseUrl}/tools/articles/${article.slug}`,
-            lastModified: new Date(article._updatedAt),
+        console.log(`Fetched ${articles.length} articles from Sanity`)
+
+        // Generate entry for the articles listing page (not individual articles)
+        const articlesPageEntry: MetadataRoute.Sitemap = [{
+            url: `${baseUrl}/tools/articles`,
+            lastModified: new Date(),
             changeFrequency: 'weekly' as const,
-            priority: 0.7,
-        }))
+            priority: 0.8,
+        }]
 
         // Combine and return all entries
-        return [...staticRoutes, ...articleEntries]
+        const allEntries = [...staticRoutes, ...articlesPageEntry]
+        console.log(`Total sitemap entries: ${allEntries.length}`)
+        return allEntries
     } catch (error) {
         console.error('Error fetching articles for sitemap:', error)
         // Return only static routes if dynamic fetch fails

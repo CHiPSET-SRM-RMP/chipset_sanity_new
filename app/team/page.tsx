@@ -35,14 +35,14 @@ export default async function Team() {
   return (
     <>
       <Suspense fallback={<PageLoader />}>
-        <div className="flex font-heading flex-col uppercase font-extrabold justify-center items-center w-full lg:text-[80px] md:text-[60px] text-[25px]">
+        <div className="flex font-heading flex-col uppercase font-extrabold justify-center items-center w-full lg:text-[40px] md:text-[28px] text-[14px]">
               <p className=' font-extrabold mt-12'>
                 What makes CH<span className='text-[#f39e2f] lowercase'>i</span>PSET
               </p>
-              <p className='lg:text-[100px] md:text-[70px] text-[45px]'>
+              <p className='lg:text-[50px] md:text-[35px] text-[20px]'>
                 <ColourfulText text={"STANDOUT"}/>
               </p>
-              <p className='lg:text-[40px] md:text-[30px] text-[15px]'>
+              <p className='lg:text-[18px] md:text-[14px] text-[10px]'>
                 from otheres
               </p>
         </div>
