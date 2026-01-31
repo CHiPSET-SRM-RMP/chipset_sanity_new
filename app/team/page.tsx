@@ -30,28 +30,28 @@ export type Members = {
 export default async function Team() {
   await new Promise((resolve) => setTimeout(resolve, 3000));
   const teamMembers = await sanityFetch<Members[]>({ query: teamQuery });
-  {teamMembers.map(member => console.log(member))}
+  { teamMembers.map(member => console.log(member)) }
 
   return (
     <>
       <Suspense fallback={<PageLoader />}>
         <div className="flex font-heading flex-col uppercase font-extrabold justify-center items-center w-full lg:text-[40px] md:text-[28px] text-[14px]">
-              <p className=' font-extrabold mt-12'>
-                What makes CH<span className='text-[#f39e2f] lowercase'>i</span>PSET
-              </p>
-              <p className='lg:text-[50px] md:text-[35px] text-[20px]'>
-                <ColourfulText text={"STANDOUT"}/>
-              </p>
-              <p className='lg:text-[18px] md:text-[14px] text-[10px]'>
-                from otheres
-              </p>
+          <p className=' font-extrabold mt-12'>
+            What makes CH<span className='text-[#f39e2f] lowercase'>i</span>PSET
+          </p>
+          <p className='lg:text-[50px] md:text-[35px] text-[20px]'>
+            <ColourfulText text={"STANDOUT"} />
+          </p>
+          <p className='lg:text-[18px] md:text-[14px] text-[10px]'>
+            from otheres
+          </p>
         </div>
         <div className="flex lg:pr-12 lg:pb-12 lg:pl-12 pt-0 w-full mb-12 h-full flex-1 justify-center">
           <div data-aos="fade-left" className="w-full p-2 lg:p-12">
             {teamMembers?.map((team) => (
               <div key={team._id} data-aos="fade-up" className='my-12 bg-gree'>
                 <h2 className="text-lg lg:text-2xl font-bold mb-4 font-heading">{team.title}</h2>
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 justify-center items-center gap-y-6 gap-x-3">
+                <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 justify-center items-start gap-4 lg:gap-6">
                   {team.members?.map((member) => {
                     const imageUrl = member.image ? urlForImage(member.image) : null;
                     // console.log(member.role)
@@ -60,9 +60,9 @@ export default async function Team() {
                         key={member._key}
                         name={member.name}
                         img={imageUrl || ''}
-                        batch={team.title} 
+                        batch={team.title}
                         role={member.role || ''}
-                        linkedin={member.linkedin || ''} 
+                        linkedin={member.linkedin || ''}
                       />
                     );
                   })}
