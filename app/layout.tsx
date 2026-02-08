@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/layouts/Navbar";
 import Footer from "@/components/Reusable/Footer";
+import VibexPoster from "@/components/Reusable/VibexPoster";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -86,6 +87,7 @@ export default function RootLayout({
 
       <body className={inter.className}>
         <Navbar />
+        <VibexPoster />
         {children}
         <Footer />
 
