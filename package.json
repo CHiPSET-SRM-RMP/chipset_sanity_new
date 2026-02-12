@@ -17,7 +17,7 @@
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@react-three/drei": "^9.105.3",
-    "@react-three/fiber": "^8.16.1",
+    "@react-three/fiber": "^9.5.0",
     "@react-three/rapier": "^2.2.0",
     "@sanity/image-url": "^1.1.0",
     "@sanity/vision": "^3.33.0",
