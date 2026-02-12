@@ -16,7 +16,7 @@ const Team_Profile: React.FC<Team> = ({ name, batch, img, role, linkedin }) => {
   return (
     <>
       <div
-        className="group relative mx-1 sm:mx-2 my-2 flex-none h-full w-[180px] sm:w-[190px] overflow-visible rounded-[22px] bg-gradient-to-br from-[#fce9d6] via-[#e7f2ff] to-white p-[1px] shadow-lg shadow-[#f39e2f]/50 transition-transform duration-300 hover:-translate-y-1 hover:shadow-[#3b82f6]/40"
+        className="group relative mx-auto sm:mx-2 my-2 flex-none h-full w-full max-w-[180px] sm:max-w-[190px] overflow-visible rounded-[22px] bg-gradient-to-br from-[#fce9d6] via-[#e7f2ff] to-white p-[1px] shadow-lg shadow-[#f39e2f]/50 transition-transform duration-300 hover:-translate-y-1 hover:shadow-[#3b82f6]/40"
         style={{
           animation: 'lanyard-sway 8s ease-in-out infinite',
           transformOrigin: '50% -120px',

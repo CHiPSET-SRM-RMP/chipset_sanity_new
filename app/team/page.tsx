@@ -51,7 +51,7 @@ export default async function Team() {
             {teamMembers?.map((team) => (
               <div key={team._id} data-aos="fade-up" className='my-12 bg-gree'>
                 <h2 className="text-lg lg:text-2xl font-bold mb-4 font-heading">{team.title}</h2>
-                <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 justify-center items-start gap-4 lg:gap-6">
+                <div className="mt-16 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 justify-center items-start gap-2 sm:gap-4 lg:gap-6">
                   {team.members?.map((member) => {
                     const imageUrl = member.image ? urlForImage(member.image) : null;
                     // console.log(member.role)
