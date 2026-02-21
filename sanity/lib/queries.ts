@@ -3,7 +3,7 @@ export const heroQuery=   groq`*[_type == 'hero']{...,"mainImage":mainImage[]{'u
 export const eventsQuery= groq`*[_type == 'events'] | order(date desc){...,"mainImage":mainImage.asset->url,"alt":mainImage.alt}`;
 export const projectsQuery= groq`*[_type == 'project']{...,"mainImage":mainImage.asset->url,"alt":mainImage.alt}`;
 export const teamQuery = groq`*[_type == 'team' && title != null] | order(title desc){...,"mainImage":mainImage.asset->url,"alt":mainImage.alt}`;
-export const noticeQuery = groq`*[_type == "notice"]{_id,title,desc,"attachmentURL" : attachment.asset->url}`;
+export const noticeQuery = groq`*[_type == "notice"] | order(_createdAt desc){_id,title,desc,"attachmentURL" : attachment.asset->url}`;
 export const galleryQuery = groq`*[_type == 'gallery']{...,"mainImage":mainImage[]{'url':asset->url}}`; 
 export const articlesQuery = groq`
   *[_type == "articles" && published == true]
@@ -14,6 +14,7 @@ export const articlesQuery = groq`
       description,
       author,
       date,
+      _updatedAt,
       readTime,
       tags,
       "mainImage": mainImage.asset->url,

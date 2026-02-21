@@ -2,10 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import { Search, BookOpen, Calendar, User, X, ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 interface Article {
   _id: string;
   title: string;
+  slug: { current: string };
   description: string;
   author: string;
   date: string;
@@ -129,13 +131,7 @@ const ArticlesImageGallery: React.FC = () => {
               return (
                 <div
                   key={article._id}
-                  className="bg-white rounded-xl shadow-md hover:shadow-xl transition overflow-hidden group cursor-pointer"
-                  onClick={() => {
-                    if (hasImages) {
-                      setSelectedArticle(article);
-                      setCurrentImageIndex(0);
-                    }
-                  }}
+                  className="bg-white rounded-xl shadow-md hover:shadow-xl transition overflow-hidden group"
                 >
                   {/* Main Image Preview */}
                   {article.mainImage && (
@@ -185,17 +181,20 @@ const ArticlesImageGallery: React.FC = () => {
                     {/* Author */}
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                        C
+                        {article.author?.charAt(0).toUpperCase() || "A"}
                       </div>
                       <span className="text-sm text-gray-700 font-semibold">{article.author}</span>
                     </div>
 
-                    {/* Click to View */}
-                    {hasImages && (
-                      <div className="mt-3 text-center text-blue-600 font-semibold text-sm">
-                        Click to view article →
-                      </div>
-                    )}
+                    {/* Actions */}
+                    <div className="mt-3 text-center">
+                      <Link
+                        href={`/tools/articles/${article.slug?.current || article._id}`}
+                        className="text-[#f39e2f] font-semibold text-sm hover:underline"
+                      >
+                        Read article →
+                      </Link>
+                    </div>
                   </div>
                 </div>
               );
@@ -276,8 +275,9 @@ const ArticlesImageGallery: React.FC = () => {
                         className="max-h-[58vh] md:max-h-[62vh] w-auto object-contain rounded-xl shadow-[0_10px_35px_rgba(15,23,42,0.9)] border border-slate-700/70 bg-slate-900/50"
                       />
 
-                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-slate-900/80 text-white px-4 py-1 rounded-full text-xs md:text-sm font-semibold tracking-wide shadow-md border border-slate-600/70">
-                        Page {currentImageIndex + 1} of {getArticleImages(selectedArticle).length}
+                      {/* Page counter - top right */}
+                      <div className="absolute top-4 right-4 bg-slate-900/80 text-white px-3 py-1.5 rounded-full text-xs md:text-sm font-semibold tracking-wide shadow-md border border-slate-600/70">
+                        {currentImageIndex + 1} / {getArticleImages(selectedArticle).length}
                       </div>
 
                       {/* Navigation Buttons */}
