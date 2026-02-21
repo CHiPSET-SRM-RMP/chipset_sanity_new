@@ -72,12 +72,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'monthly',
             priority: 0.7,
         },
-        {
-            url: `${baseUrl}/tools/add-article`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.6,
-        },
     ]
 
     try {
@@ -90,7 +84,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
         console.log(`Fetched ${articles.length} articles from Sanity`)
 
-        // Generate entry for the articles listing page (not individual articles)
+        // Generate entry for the articles listing page
         const articlesPageEntry: MetadataRoute.Sitemap = [{
             url: `${baseUrl}/tools/articles`,
             lastModified: new Date(),
@@ -98,8 +92,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.8,
         }]
 
+        // Generate entries for each individual article
+        const articleEntries: MetadataRoute.Sitemap = articles
+            .filter((article) => article.slug)
+            .map((article) => ({
+                url: `${baseUrl}/tools/articles/${article.slug}`,
+                lastModified: new Date(article._updatedAt),
+                changeFrequency: 'monthly' as const,
+                priority: 0.7,
+            }))
+
         // Combine and return all entries
-        const allEntries = [...staticRoutes, ...articlesPageEntry]
+        const allEntries = [...staticRoutes, ...articlesPageEntry, ...articleEntries]
         console.log(`Total sitemap entries: ${allEntries.length}`)
         return allEntries
     } catch (error) {
