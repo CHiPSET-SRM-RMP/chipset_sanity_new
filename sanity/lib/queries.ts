@@ -14,6 +14,7 @@ export const articlesQuery = groq`
       description,
       author,
       date,
+      _updatedAt,
       readTime,
       tags,
       "mainImage": mainImage.asset->url,

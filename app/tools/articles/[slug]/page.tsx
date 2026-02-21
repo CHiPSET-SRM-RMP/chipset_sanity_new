@@ -2,6 +2,7 @@ import { client } from "@/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import ArticleContent from "./ArticleContent";
+import { articlesQuery } from "@/sanity/lib/queries";
 
 // Revalidate every 1 hour - new articles automatically appear
 export const revalidate = 3600;
@@ -16,10 +17,8 @@ interface ArticleParams {
 }
 
 export async function generateMetadata({ params }: ArticleParams): Promise<Metadata> {
-  const article = await client.fetch(
-    `*[_type == "articles" && slug.current == $slug][0]`,
-    { slug: params.slug }
-  );
+  const articles = await client.fetch(articlesQuery);
+  const article = articles.find((a: any) => a.slug.current === params.slug);
 
   if (!article) {
     return {
@@ -27,18 +26,60 @@ export async function generateMetadata({ params }: ArticleParams): Promise<Metad
     };
   }
 
+  const articleUrl = `https://chipsetsrm.vercel.app/tools/articles/${params.slug}`;
+  const imageUrl = article.mainImage || "https://chipsetsrm.vercel.app/assets/chipset-og-image.png";
+
   return {
-    title: article.title,
+    title: `${article.title} | CHiPSET Tech Articles`,
     description: article.description,
-    keywords: article.tags?.join(", "),
+    keywords: [
+      ...(article.tags || []),
+      "programming tutorial",
+      "tech article",
+      "chipset srm",
+      "web development",
+      "coding guide",
+    ],
+    authors: [{ name: article.author }],
     openGraph: {
       title: article.title,
       description: article.description,
-      url: `https://chipsetsrm.vercel.app/tools/articles/${params.slug}`,
+      url: articleUrl,
+      siteName: "CHIPSET SRM University Ramapuram",
       type: "article",
+      publishedTime: article.date,
+      modifiedTime: article._updatedAt,
+      authors: [article.author],
+      tags: article.tags,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.description,
+      images: [imageUrl],
+      creator: "@chipsetsrm",
     },
     alternates: {
-      canonical: `https://chipsetsrm.vercel.app/tools/articles/${params.slug}`,
+      canonical: articleUrl,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
   };
 }
@@ -54,32 +95,90 @@ export async function generateStaticParams() {
 }
 
 export default async function ArticlePage({ params }: ArticleParams) {
-  const article = await client.fetch(
-    `*[_type == "articles" && slug.current == $slug && published == true][0]{
-      _id,
-      title,
-      description,
-      author,
-      date,
-      readTime,
-      "mainImage": mainImage.asset->url,
-      "content": content[]{
-        ...,
-        _type == "image" => {
-          "url": asset->url,
-          alt,
-          _type
-        }
-      },
-      tags,
-      slug
-    }`,
-    { slug: params.slug }
-  );
+  const articles = await client.fetch(articlesQuery);
+  const article = articles.find((a: any) => a.slug.current === params.slug);
 
   if (!article) {
     notFound();
   }
 
-  return <ArticleContent article={article} />;
+  const articleUrl = `https://chipsetsrm.vercel.app/tools/articles/${params.slug}`;
+  const imageUrl = article.mainImage || "https://chipsetsrm.vercel.app/assets/chipset-og-image.png";
+
+  // JSON-LD structured data for Article
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.description,
+    image: imageUrl,
+    datePublished: article.date,
+    dateModified: article._updatedAt || article.date,
+    author: {
+      "@type": "Person",
+      name: article.author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "CHIPSET SRM University Ramapuram",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://chipsetsrm.vercel.app/assets/chipset-logo.png",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": articleUrl,
+    },
+    keywords: article.tags?.join(", "),
+    articleSection: "Technology",
+    inLanguage: "en-US",
+  };
+
+  // Breadcrumb structured data
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://chipsetsrm.vercel.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tools",
+        item: "https://chipsetsrm.vercel.app/tools",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Articles",
+        item: "https://chipsetsrm.vercel.app/tools/articles",
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: article.title,
+        item: articleUrl,
+      },
+    ],
+  };
+
+  return (
+    <>
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <ArticleContent article={article} />
+    </>
+  );
 }
