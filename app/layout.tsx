@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/layouts/Navbar";
 import Footer from "@/components/Reusable/Footer";
-import VibexPoster from "@/components/Reusable/VibexPoster";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -29,7 +28,7 @@ export const metadata: Metadata = {
     "technology",
   ],
 
-  // ✅ Google Verification inside metadata (RECOMMENDED WAY)
+ 
   verification: {
     google: "C4iB6CbG_q5hRMd0VkPlhScF1MY5KFB-BthH5J-AS7E",
   },
@@ -87,7 +86,7 @@ export default function RootLayout({
 
       <body className={inter.className}>
         <Navbar />
-        <VibexPoster />
+       
         {children}
         <Footer />
 
