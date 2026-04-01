@@ -1,4 +1,4 @@
-Chipset - Technical Club of SRM Ramapuram abc
+Chipset - Technical Club of SRM Ramapuram 
 Welcome to the official repository of Chipset, the oldest technical club of SRM Ramapuram! This project is built using Next.js, a powerful React framework for building modern web applications. Whether you're a developer, contributor, or just curious, this README will guide you through setting up and understanding the project.
 
 About Chipset
