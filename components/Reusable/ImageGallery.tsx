@@ -27,16 +27,18 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => {
 
   const handlePrev = () => {
     if (selectedImageIndex === null) return;
-    setSelectedImageIndex((prev) =>
-      prev === 0 ? validImages.length - 1 : prev - 1
-    );
+    setSelectedImageIndex((prev) => {
+      if (prev === null) return null;
+      return prev === 0 ? validImages.length - 1 : prev - 1;
+    });
   };
 
   const handleNext = () => {
     if (selectedImageIndex === null) return;
-    setSelectedImageIndex((prev) =>
-      prev === validImages.length - 1 ? 0 : prev + 1
-    );
+    setSelectedImageIndex((prev) => {
+      if (prev === null) return null;
+      return prev === validImages.length - 1 ? 0 : prev + 1;
+    });
   };
 
   const handleClose = () => {
@@ -61,6 +63,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => {
               onClick={() => setSelectedImageIndex(idx)}
               className="relative group overflow-hidden rounded-lg aspect-square"
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={image.url}
                 alt={image.alt || `Gallery image ${idx + 1}`}
@@ -91,6 +94,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => {
 
           {/* Main Image */}
           <div className="relative w-full max-w-4xl flex items-center justify-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={validImages[selectedImageIndex].url}
               alt={validImages[selectedImageIndex].alt || `Image ${selectedImageIndex + 1}`}
@@ -141,6 +145,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => {
                       : "border-slate-600 hover:border-slate-400"
                   }`}
                 >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={image.url}
                     alt={image.alt || `Thumbnail ${idx + 1}`}

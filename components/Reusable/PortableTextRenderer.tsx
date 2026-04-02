@@ -3,7 +3,7 @@
 import React from "react";
 
 interface PortableTextBlock {
-  _type: string;
+  _type?: string;
   _key?: string;
   style?: string;
   children?: Array<{
@@ -188,6 +188,7 @@ const PortableTextRenderer: React.FC<PortableTextRendererProps> = ({
 
       return (
         <div key={index} className="my-8">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={imageUrl}
             alt={alt}
