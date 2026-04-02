@@ -10,7 +10,7 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">1. Introduction</h2>
             <p className="mb-4">
-              CHiPSET ("we", "us", "our", or "Company") operates the website. This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our website and the choices you have associated with that data.
+              CHiPSET (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;, or &quot;Company&quot;) operates the website. This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our website and the choices you have associated with that data.
             </p>
           </section>
 
@@ -56,7 +56,7 @@ export default function PrivacyPolicy() {
             </p>
             <ul className="list-disc list-inside space-y-2 ml-4 mb-4">
               <li>Visiting your <a href="https://myaccount.google.com/" className="text-blue-600 hover:underline">Google Account settings</a></li>
-              <li>Using the <a href="https://www.networkadvertising.org/choices/" className="text-blue-600 hover:underline">Network Advertising Initiative's opt-out tool</a></li>
+              <li>Using the <a href="https://www.networkadvertising.org/choices/" className="text-blue-600 hover:underline">Network Advertising Initiative&apos;s opt-out tool</a></li>
               <li>Using the <a href="https://www.google.com/ads/preferences/" className="text-blue-600 hover:underline">Google Ads Preferences Manager</a></li>
             </ul>
           </section>
@@ -78,7 +78,7 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">7. Changes to This Privacy Policy</h2>
             <p className="mb-4">
-              We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "effective date" at the top of this Privacy Policy.
+              We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the &quot;effective date&quot; at the top of this Privacy Policy.
             </p>
           </section>
 

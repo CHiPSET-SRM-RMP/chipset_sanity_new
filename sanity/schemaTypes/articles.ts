@@ -25,7 +25,7 @@ export default defineType({
       name: "description",
       title: "Description",
       type: "text",
-      validation: (Rule) => Rule.required().max(200),
+      validation: (Rule) => Rule.required().max(1000),
     }),
     defineField({
       name: "author",

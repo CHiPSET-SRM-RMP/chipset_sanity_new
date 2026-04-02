@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Calendar, User, ChevronLeft } from "lucide-react";
+import { Calendar, User, ChevronLeft, ChevronDown, Minus } from "lucide-react";
 import Link from "next/link";
 import PortableTextRenderer from "./PortableTextRenderer";
 import ImageGallery from "./ImageGallery";
@@ -48,6 +48,8 @@ const DynamicArticleRenderer: React.FC<DynamicArticleRendererProps> = ({
   article,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [expandDescription, setExpandDescription] = useState(false);
+  const [minimizeHeader, setMinimizeHeader] = useState(false);
   const displayType = article.displayType || "blog";
 
   // Extract images and text blocks from content
@@ -63,20 +65,42 @@ const DynamicArticleRenderer: React.FC<DynamicArticleRendererProps> = ({
   const renderHeader = () => (
     <div className="bg-gradient-to-b from-slate-950 to-slate-900 border-b border-slate-800 px-4 md:px-8 py-3 sticky top-0 z-40">
       <div className="max-w-4xl mx-auto">
-        <Link
-          href="/tools/articles"
-          className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-white transition mb-2"
-        >
-          <ChevronLeft size={14} /> Back to Articles
-        </Link>
+        <div className="flex items-start justify-between gap-2 mb-2">
+          <Link
+            href="/tools/articles"
+            className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-white transition"
+          >
+            <ChevronLeft size={14} /> Back to Articles
+          </Link>
+          <button
+            onClick={() => setMinimizeHeader(!minimizeHeader)}
+            className="p-1 hover:bg-slate-800 rounded transition text-slate-400 hover:text-white"
+            title={minimizeHeader ? "Expand" : "Minimize"}
+          >
+            <Minus size={16} />
+          </button>
+        </div>
 
-        <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight mb-2">
-          {article.title}
-        </h1>
+        {!minimizeHeader && (
+          <>
+            <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight mb-2">
+              {article.title}
+            </h1>
 
-        <p className="text-slate-400 text-sm md:text-base mb-3">
-          {article.description}
-        </p>
+            <div className="mb-3">
+              <p className={`text-slate-400 text-sm md:text-base transition-all ${expandDescription ? "" : "line-clamp-1"}`}>
+                {article.description}
+              </p>
+              <button
+                onClick={() => setExpandDescription(!expandDescription)}
+                className="mt-1 inline-flex items-center gap-1 text-xs text-yellow-500 hover:text-yellow-400 transition-colors"
+              >
+                {expandDescription ? "Show Less" : "Show More"}
+                <ChevronDown size={14} className={`transition-transform ${expandDescription ? "rotate-180" : ""}`} />
+              </button>
+            </div>
+          </>
+        )}
 
         {/* Metadata */}
         <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm text-slate-400 mb-3">
@@ -96,7 +120,7 @@ const DynamicArticleRenderer: React.FC<DynamicArticleRendererProps> = ({
         </div>
 
         {/* Tags */}
-        {article.tags && article.tags.length > 0 && (
+        {!minimizeHeader && article.tags && article.tags.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {article.tags.map((tag) => (
               <span
