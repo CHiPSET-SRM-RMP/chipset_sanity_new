@@ -82,6 +82,14 @@ export default function RootLayout({
     <html lang="en" className="scrollbar-none overflow-y-scroll">
       <head>
         <link rel="icon" href="/favicon.ico" />
+        {/* Google AdSense */}
+        <meta name="google-adsense-account" content="ca-pub-6003168106643942" />
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6003168106643942"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </head>
 
       <body className={inter.className}>
