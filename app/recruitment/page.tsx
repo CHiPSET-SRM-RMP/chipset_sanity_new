@@ -84,7 +84,7 @@ export default function Careers() {
         <div className="bg-blue-50 border-l-4 border-[#f39e2f] p-8 rounded-lg">
           <h2 className="text-2xl font-bold text-slate-900 mb-4">Recruitment Status</h2>
           <p className="text-gray-700 text-lg mb-6">
-            Registrations for this year's recruitment cycle are currently closed. However, CHiPSET is always looking for passionate members who want to contribute to our community!
+            Registrations for this year&apos;s recruitment cycle are currently closed. However, CHiPSET is always looking for passionate members who want to contribute to our community!
           </p>
           <div className="space-y-3 text-gray-700">
             <p><strong>Next Recruitment Window:</strong> Look out for announcements in the coming months</p>

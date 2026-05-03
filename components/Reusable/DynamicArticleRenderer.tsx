@@ -74,7 +74,7 @@ const DynamicArticleRenderer: React.FC<DynamicArticleRendererProps> = ({
           </Link>
           <button
             onClick={() => setMinimizeHeader(!minimizeHeader)}
-            className="p-1 hover:bg-slate-800 rounded transition text-slate-400 hover:text-white"
+            className="p-1.5 hover:bg-yellow-400 rounded transition text-yellow-500 hover:text-yellow-600 bg-yellow-50 border border-yellow-200"
             title={minimizeHeader ? "Expand" : "Minimize"}
           >
             <Minus size={16} />
