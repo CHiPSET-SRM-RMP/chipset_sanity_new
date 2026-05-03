@@ -17,6 +17,7 @@ export const articlesQuery = groq`
       _updatedAt,
       readTime,
       tags,
+      displayType,
       "mainImage": mainImage.asset->url,
       "content": content[]{
         ...,

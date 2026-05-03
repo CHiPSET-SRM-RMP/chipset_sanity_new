@@ -37,9 +37,13 @@ const Footer = () => {
                 <hr className="my-6 sm:mx-auto border-black lg:my-8" />
                 <div className='flex flex-1 justify-center'>
                   <div>
-                    <span className="block text-[9px] md:text-[12px] justify-center text-gray-500 sm:text-center dark:text-gray-400">© 2025 <a href="" className="hover:underline">CHiPSET</a>. All Rights Reserved.</span>
+                    <span className="block text-[9px] md:text-[12px] justify-center text-gray-500 sm:text-center dark:text-gray-400">© 2026 <a href="" className="hover:underline">CHiPSET</a>. All Rights Reserved.</span>
+                    
                     <span className="block text-[9px] md:text-[12px] justify-center text-gray-500 sm:text-center dark:text-gray-400">Developer - Nikhil Sharma<Link className='hover:underline font-bold' href="https://www.linkedin.com/in/nikhilshaarrma/"> Contact </Link></span>
                     <span className="block text-[9px] md:text-[12px] justify-center text-gray-500 sm:text-center dark:text-gray-400">Co-Developer - Chakradhar Danesh<Link className='hover:underline font-bold' href="https://www.linkedin.com/in/chakradhar-danesh"> Contact </Link></span>
+                    <span className="block text-[9px] md:text-[12px] justify-center text-gray-500 sm:text-center dark:text-gray-400">
+                      <Link className='hover:underline' href="/privacy-policy">Privacy Policy</Link>
+                    </span>
                   </div>
                 </div>
             </div>

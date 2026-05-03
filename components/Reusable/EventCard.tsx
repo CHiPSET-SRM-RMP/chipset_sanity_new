@@ -7,6 +7,12 @@ import { Calendar, Users, Tag } from 'lucide-react';
 
 const EventCard = ({events}:{events:Event}) => {
   // console.log(events.mainImage)
+  
+  // Return null if no image
+  if (!events.mainImage) {
+    return null;
+  }
+
   return (
     <>
     <div data-aos="fade-up">
@@ -21,7 +27,7 @@ const EventCard = ({events}:{events:Event}) => {
                       height="1000" 
                       width="1000" 
                       className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-500"
-                      alt="thumbnail"
+                      alt={events.title || "thumbnail"}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                   </div>

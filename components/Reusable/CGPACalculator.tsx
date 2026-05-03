@@ -8,6 +8,7 @@ interface Subject {
   name: string;
   credits: number;
   grade: string;
+  isUHV?: boolean;
 }
 
 interface CourseData {
@@ -15,6 +16,7 @@ interface CourseData {
   name: string;
   semester: number;
   credits: number;
+  isUHV?: boolean;
 }
 
 const courseDatabase: CourseData[] = [
@@ -51,6 +53,15 @@ const courseDatabase: CourseData[] = [
   { code: "21CSC203P", name: "ADVANCED PROGRAMMING PRACTICE", semester: 3, credits: 4 },
   { code: "21DCS201P", name: "DESIGN THINKING AND METHODOLOGY", semester: 3, credits: 3 },
   { code: "21LEM201T", name: "PROFESSIONAL ETHICS", semester: 3, credits: 0 },
+
+  // Semester 4
+  { code: "21CSC204T", name: "PROBABILITY AND QUEUEING THEORY", semester: 4, credits: 4 },
+  { code: "21CSC205J", name: "DESIGN AND ANALYSIS OF ALGORITHMS", semester: 4, credits: 4 },
+  { code: "21CSC206J", name: "DATABASE MANAGEMENT SYSTEMS", semester: 4, credits: 4 },
+  { code: "21CSC207J", name: "ARTIFICIAL INTELLIGENCE", semester: 4, credits: 3 },
+  { code: "21CSC208J", name: "INTERNET OF THINGS", semester: 4, credits: 3 },
+  { code: "21CSC209T", name: "SOCIAL ENGINEERING", semester: 4, credits: 2 },
+  { code: "21GNM202T", name: "UNIVERSAL HUMAN VALUES (UNDERSTANDING HARMONY AND ETHICAL HUMAN CONDUCT)", semester: 4, credits: 3, isUHV: true },
 ];
 
 const gradePoints: { [key: string]: number } = {
@@ -77,8 +88,9 @@ const gradeDetails: { [key: string]: { range: string; description: string; statu
 
 const CGPACalculator: React.FC = () => {
   const [selectedSemester, setSelectedSemester] = useState<string | null>(null);
+  const [selectedSpecificSemester, setSelectedSpecificSemester] = useState<string>("");
   const [subjects, setSubjects] = useState<Subject[]>([
-    { id: "1", name: "", credits: 0, grade: "A+" },
+    { id: "1", name: "", credits: 0, grade: "A+", isUHV: false },
   ]);
 
   const semesterCourses = selectedSemester 
@@ -87,7 +99,8 @@ const CGPACalculator: React.FC = () => {
         if (selectedSemester === "1st") {
           semesters = [1, 2];
         } else if (selectedSemester === "2nd") {
-          semesters = [3, 4];
+          // For 2nd year, use the specific semester selection if available
+          semesters = selectedSpecificSemester === "3rd" ? [3] : selectedSpecificSemester === "4th" ? [4] : [3, 4];
         }
         return courseDatabase.filter((course) => semesters.includes(course.semester));
       })()
@@ -95,12 +108,17 @@ const CGPACalculator: React.FC = () => {
 
   const handleSelectSemester = (yearGroup: string) => {
     setSelectedSemester(yearGroup);
+    if (yearGroup === "1st") {
+      setSelectedSpecificSemester("");
+    } else if (yearGroup === "2nd") {
+      setSelectedSpecificSemester("3rd"); // Default to 3rd semester
+    }
     // Load courses based on year group
     let semesters: number[] = [];
     if (yearGroup === "1st") {
       semesters = [1, 2]; // Sem 1 and 2
     } else if (yearGroup === "2nd") {
-      semesters = [3, 4]; // Sem 3 and 4
+      semesters = [3]; // Default to Sem 3
     }
 
     const courses = courseDatabase.filter((course) => semesters.includes(course.semester));
@@ -118,14 +136,32 @@ const CGPACalculator: React.FC = () => {
       name: course.name,
       credits: course.credits,
       grade: "A+",
+      isUHV: course.isUHV || false,
     }));
 
-    setSubjects(newSubjects.length > 0 ? newSubjects : [{ id: "1", name: "", credits: 0, grade: "A+" }]);
+    setSubjects(newSubjects.length > 0 ? newSubjects : [{ id: "1", name: "", credits: 0, grade: "A+", isUHV: false }]);
+  };
+
+  const handleSelect2ndYearSemester = (sem: string) => {
+    setSelectedSpecificSemester(sem);
+    // Load courses for the selected semester
+    const semesterNum = sem === "3rd" ? 3 : 4;
+    const courses = courseDatabase.filter((course) => course.semester === semesterNum);
+
+    const newSubjects = courses.map((course, index) => ({
+      id: (index + 1).toString(),
+      name: course.name,
+      credits: course.credits,
+      grade: "A+",
+      isUHV: course.isUHV || false,
+    }));
+
+    setSubjects(newSubjects.length > 0 ? newSubjects : [{ id: "1", name: "", credits: 0, grade: "A+", isUHV: false }]);
   };
 
   const addSubject = () => {
     const newId = (Math.max(...subjects.map((s) => parseInt(s.id)), 0) + 1).toString();
-    setSubjects([...subjects, { id: newId, name: "", credits: 0, grade: "A+" }]);
+    setSubjects([...subjects, { id: newId, name: "", credits: 0, grade: "A+", isUHV: false }]);
   };
 
   const removeSubject = (id: string) => {
@@ -145,6 +181,10 @@ const CGPACalculator: React.FC = () => {
     let totalCredits = 0;
 
     subjects.forEach((subject) => {
+      // Skip UHV as it's generally not counted towards CGPA
+      if (subject.isUHV) {
+        return;
+      }
       if (subject.credits > 0) {
         const points = gradePoints[subject.grade] || 0;
         totalPoints += points * subject.credits;
@@ -157,7 +197,7 @@ const CGPACalculator: React.FC = () => {
 
   const resetCalculator = () => {
     setSelectedSemester(null);
-    setSubjects([{ id: "1", name: "", credits: 0, grade: "A+" }]);
+    setSubjects([{ id: "1", name: "", credits: 0, grade: "A+", isUHV: false }]);
   };
 
   const gpa = calculateGPA();
@@ -227,8 +267,23 @@ const CGPACalculator: React.FC = () => {
           </div>
           {selectedSemester && (
             <div className="space-y-3 mt-5 pt-5 border-t border-blue-200">
+              {selectedSemester === "2nd" && (
+                <div className="mb-4">
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    Select Semester:
+                  </label>
+                  <select
+                    value={selectedSpecificSemester}
+                    onChange={(e) => handleSelect2ndYearSemester(e.target.value)}
+                    className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-[#f39e2f] focus:border-transparent transition-all bg-white"
+                  >
+                    <option value="3rd">3rd Semester</option>
+                    <option value="4th">4th Semester</option>
+                  </select>
+                </div>
+              )}
               <p className="text-sm text-gray-700 font-medium">
-                ✨ {semesterCourses.length} courses loaded for {selectedSemester} year. Customize below.
+                ✨ {semesterCourses.length} courses loaded for {selectedSemester} year{selectedSemester === "2nd" && selectedSpecificSemester ? ` - ${selectedSpecificSemester} Semester` : ""}. Customize below.
               </p>
               <div className="bg-blue-100/60 border-l-4 border-blue-500 rounded-lg p-3 flex items-start gap-3">
                 <Trash2 size={16} className="text-blue-600 flex-shrink-0 mt-0.5" />
@@ -297,6 +352,11 @@ const CGPACalculator: React.FC = () => {
                     </select>
                   </div>
                 </div>
+                {subject.isUHV && (
+                  <div className="md:hidden mt-2 px-4 text-xs font-semibold text-orange-700 bg-orange-100 py-1.5 rounded border border-orange-300 italic">
+                    ⚠️ Generally not counted towards CGPA
+                  </div>
+                )}
 
                 {/* Desktop: Grid Layout */}
                 <div className="hidden md:flex gap-4 items-center bg-white p-4 rounded-lg border border-gray-100 hover:border-gray-300 hover:shadow-md transition-all duration-300">
@@ -325,6 +385,11 @@ const CGPACalculator: React.FC = () => {
                       </option>
                     ))}
                   </select>
+                  {subject.isUHV ? (
+                    <div className="w-40"></div>
+                  ) : (
+                    <div className="w-40"></div>
+                  )}
                   <button
                     onClick={() => removeSubject(subject.id)}
                     disabled={subjects.length === 1}
@@ -334,6 +399,11 @@ const CGPACalculator: React.FC = () => {
                     <Trash2 size={18} />
                   </button>
                 </div>
+                {subject.isUHV && (
+                  <div className="hidden md:block mt-2 ml-4 text-xs font-semibold text-orange-700 bg-orange-100 px-2 py-1.5 rounded border border-orange-300 italic">
+                    ⚠️ Generally not counted towards CGPA
+                  </div>
+                )}
               </div>
             ))}
           </div>
