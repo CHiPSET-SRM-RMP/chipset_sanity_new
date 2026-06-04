@@ -7,7 +7,7 @@ import { AuroraBackground } from "../ui/aurora-background";
 
 export function Macbook() {
     return (
-      <div className="overflow-hidden h-full w-full bg-slate-100">
+      <div className="overflow-hidden h-full w-full bg-slate-100 py-0 md:py-4">
 
     <MacbookScroll
           title={

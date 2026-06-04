@@ -25,7 +25,7 @@ export default defineType({
       name: "description",
       title: "Description",
       type: "text",
-      validation: (Rule) => Rule.required().max(200),
+      validation: (Rule) => Rule.required().max(1000),
     }),
     defineField({
       name: "author",
@@ -96,6 +96,21 @@ export default defineType({
       title: "Published",
       type: "boolean",
       initialValue: true,
+    }),
+    defineField({
+      name: "displayType",
+      title: "Display Type",
+      type: "string",
+      options: {
+        list: [
+          { title: "Gallery (Images Only)", value: "gallery" },
+          { title: "Blog (Full Content)", value: "blog" },
+          { title: "Hybrid (Blog + Gallery)", value: "hybrid" },
+        ],
+      },
+      initialValue: "blog",
+      validation: (Rule) => Rule.required(),
+      description: "How to display this article - gallery mode shows only images, blog mode shows full text content, hybrid shows both",
     }),
   ],
   preview: {

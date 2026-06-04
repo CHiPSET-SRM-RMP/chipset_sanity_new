@@ -1,7 +1,7 @@
 import React from "react";
 import AllComponents from "@/components/AllComponents";
 import { sanityFetch } from "@/sanity/lib/sanityFetch";
-import { eventsQuery, heroQuery, noticeQuery } from "@/sanity/lib/queries";
+import { eventsQuery, heroQuery, noticeQuery, articlesQuery } from "@/sanity/lib/queries";
 import { Suspense } from "react";
 import PageLoader from "@/components/Reusable/PageLoader";
 import { promises } from "dns";
@@ -46,14 +46,28 @@ export type Members={
   live_link: string
 }
 
+export type Article = {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  description: string;
+  author: string;
+  date: string;
+  readTime: number;
+  mainImage?: string;
+  tags: string[];
+  displayType: string;
+}
+
 export default async function Home() {
 
   const slideshow = await sanityFetch<Hero[]>({query:heroQuery});
   const events = await sanityFetch<Event[]>({query:eventsQuery});
+  const articles = await sanityFetch<Article[]>({query:articlesQuery});
   return (
     <main>
       <Suspense fallback={ <PageLoader/> }>
-        <AllComponents slideshow={slideshow} events={events}/>
+        <AllComponents slideshow={slideshow} events={events} recentArticles={articles}/>
       </Suspense>
     </main>
   );

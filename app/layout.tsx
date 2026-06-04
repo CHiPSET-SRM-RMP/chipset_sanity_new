@@ -9,7 +9,7 @@ import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://chipsetsrm.vercel.app"),  // ✅ FIXED
+  metadataBase: new URL("https://www.chipsetsrm.live"),  // ✅ FIXED
   title: {
     default: "CHIPSET | SRM University Ramapuram",
     template: "%s | CHIPSET SRM University Ramapuram",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     "technology",
   ],
 
-  // ✅ Google Verification inside metadata (RECOMMENDED WAY)
+ 
   verification: {
     google: "C4iB6CbG_q5hRMd0VkPlhScF1MY5KFB-BthH5J-AS7E",
   },
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: "CHIPSET | SRM University Ramapuram",
     description:
       "Official website of CHIPSET, the technical club of SRM University Ramapuram. Get updates, events, recruitment, and more.",
-    url: "https://chipsetsrm.vercel.app",
+    url: "https://www.chipsetsrm.live/",
     siteName: "CHIPSET SRM University Ramapuram",
     images: [
       {
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
   },
 
   alternates: {
-    canonical: "https://chipsetsrm.vercel.app",
+    canonical: "https://www.chipsetsrm.live/",
   },
 };
 
@@ -82,10 +82,19 @@ export default function RootLayout({
     <html lang="en" className="scrollbar-none overflow-y-scroll">
       <head>
         <link rel="icon" href="/favicon.ico" />
+        {/* Google AdSense */}
+        <meta name="google-adsense-account" content="ca-pub-6003168106643942" />
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6003168106643942"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </head>
 
       <body className={inter.className}>
         <Navbar />
+       
         {children}
         <Footer />
 
@@ -94,7 +103,7 @@ export default function RootLayout({
 
         {/* Google Analytics */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-90LSQWVPVQ"
+          src="https://www.googletagmanager.com/gtag/js?id=G-BSPBBX6LZD"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -102,6 +111,7 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
+            gtag('config', 'G-BSPBBX6LZD');
             gtag('config', 'G-90LSQWVPVQ');
           `}
         </Script>

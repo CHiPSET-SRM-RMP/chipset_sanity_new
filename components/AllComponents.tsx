@@ -5,12 +5,14 @@ import Events from './Landing/Events'
 import AboutLanding from './Landing/AboutLanding'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { Event, Hero } from '@/app/page'
+import { Event, Hero, Article } from '@/app/page'
 import { Herolanding } from './Landing/Hero'
 import Analytics from './Landing/Analytics'
 import PageLoader from './Reusable/PageLoader'
+import AlumniSlide from './Landing/AlumniSlide'
+import FeaturedArticleComponent from './Landing/FeaturedArticle'
 
-const AllComponents = ({slideshow,events}:{slideshow:Hero[] , events:Event[]}) => {
+const AllComponents = ({slideshow, events, recentArticles}:{slideshow:Hero[], events:Event[], recentArticles?: Article[]}) => {
     useEffect(() => {
         AOS.init({
              duration: 800,
@@ -22,13 +24,10 @@ const AllComponents = ({slideshow,events}:{slideshow:Hero[] , events:Event[]}) =
       <PageLoader />
       <div className="flex min-h-screen h-full w-full flex-col items-center overflow-hidden justify-between ">
         <Herolanding images={slideshow}/>
-        <div className='hidden md:flex w-full'>
-          <Macbook/>
-        </div>
+        <Macbook/>
         <AboutLanding/>
-        <div className='md:hidden'>
-          <Macbook/>
-        </div>
+        <AlumniSlide/>
+        {recentArticles && recentArticles.length > 0 && <FeaturedArticleComponent articles={recentArticles} limit={3}/>}
         <Analytics/>
         <Events events={events}/>
       </div>

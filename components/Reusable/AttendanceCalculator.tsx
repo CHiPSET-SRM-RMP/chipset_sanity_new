@@ -34,6 +34,7 @@ const predefinedSubjects = [
     { name: "Calculus and Linear Algebra", hours: 60 },        // L=3 T=1 P=0 C=4
     { name: "Advanced Calculus and Complex Analysis", hours: 60 },  // L=3 T=1 P=0 C=4
     { name: "Probability and Statistics", hours: 60 },         // L=3 T=1 P=0 C=4
+    { name: "Probability and Queuing Theory", hours: 60 },
     { name: "Physics: Electromagnetic Theory, Quantum Mechanics, Waves and Optics", hours: 90 },  // L=3 T=1 P=2 C=5
     { name: "Semiconductor Physics and Computational Methods", hours: 90 },  // L=3 T=1 P=2 C=5
     { name: "Physics: Mechanics", hours: 90 },                 // L=3 T=1 P=2 C=5
@@ -42,9 +43,13 @@ const predefinedSubjects = [
     // Non Credit Courses
     { name: "Environmental Science", hours: 15 },              // L=1 T=0 P=0 C=0
     { name: "Constitution of India", hours: 15 },              // L=1 T=0 P=0 C=0
+    { name: "Indian Traditional Knowledge", hours: 15 },       // L=1 T=0 P=0 C=0
     { name: "Universal Human Values", hours: 15 },             // L=1 T=0 P=0 C=0
+    { name: "UHV -2 universal human values understanding harmony and ethical human conduct", hours: 45 },
+    { name: "Critical and Creative Thinking", hours: 30 },
     { name: "Professional Skills and Practices", hours: 30 },  // L=0 T=0 P=2 C=0
     { name: "General Aptitude", hours: 30 },                   // L=0 T=0 P=2 C=0
+    { name: "Employability Skills and Practices", hours: 30 }, // L=0 T=0 P=2 C=0
     { name: "Physical and Mental Health using Yoga", hours: 30 },  // L=0 T=0 P=2 C=0
     { name: "National Service Scheme", hours: 30 },            // L=0 T=0 P=2 C=0
     { name: "National Cadet Corps", hours: 30 },               // L=0 T=0 P=2 C=0
@@ -67,6 +72,7 @@ const predefinedSubjects = [
     { name: "Object Oriented Design and Programming", hours: 45 },  // L=2 T=1 P=0 C=3
     { name: "Electric Circuits", hours: 60 },                  // L=2 T=0 P=2 C=3
     { name: "Electronic System and PCB Design", hours: 60 },   // L=2 T=0 P=2 C=3
+    { name: "Fiber Optics and Optoelectronics", hours: 45 },   // L=3 T=0 P=0 C=3
     { name: "Systems Programming", hours: 75 },                // L=3 T=0 P=2 C=4
     { name: "Sensors and Actuators", hours: 75 },              // L=3 T=0 P=2 C=4
     { name: "Elements of Mechatronics Systems", hours: 45 },   // L=2 T=1 P=0 C=3
@@ -77,6 +83,7 @@ const predefinedSubjects = [
     { name: "Mathematics (LE)", hours: 60 },                   // L=3 T=1 P=0 C=4
     { name: "Engineering Physics (LE)", hours: 30 },           // L=2 T=0 P=0 C=2
     { name: "Chemistry (LE)", hours: 30 },                     // L=2 T=0 P=0 C=2
+    { name: "Design Thinking and Methodology", hours: 45 },    // L=3 T=0 P=0 C=3 (Semester 3)
 
     // ============= HIGHER SEMESTER CSE COURSES =============
     // Professional Core Courses
@@ -153,6 +160,7 @@ const predefinedSubjects = [
     { name: "Logic and Knowledge Representation", hours: 45 },
     { name: "Artificial Intelligence in Genomics and Disease Prediction", hours: 45 },
     { name: "Machine Learning in Drug Discovery", hours: 45 },
+    { name: "Artificial Intelligence", hours: 45 },
     { name: "IoT Concepts and Applications", hours: 45 },
     { name: "Fuzzy Logic and its Applications", hours: 45 },
     { name: "Robotics: Computational Motion Planning", hours: 45 },
@@ -218,6 +226,7 @@ const predefinedSubjects = [
     { name: "Operation System Security", hours: 45 },
     { name: "Cyberwarfare", hours: 45 },
     { name: "Hacker Mind: Profiling The IT Criminal", hours: 45 },
+    { name: "Social Engineering", hours: 30 },
     { name: "Mobile and Wireless Security", hours: 45 },
     { name: "Windows and Linux Internals", hours: 75 },
     { name: "Cyber Crime and Digital Forensics", hours: 45 },
@@ -301,6 +310,7 @@ const predefinedSubjects = [
 
     // Data Science Courses
     { name: "Fundamentals of Data Science", hours: 45 },
+    { name: "Data Science", hours: 30 },
     { name: "Full Stack Development", hours: 45 },
     { name: "Advanced Object Oriented Programming", hours: 60 },
     { name: "Machine Learning for Data Analytics", hours: 60 },
