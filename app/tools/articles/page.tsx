@@ -32,12 +32,12 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "Tech Articles & Programming Tutorials - CHiPSET",
       description,
-      url: "https://chipsetsrm.vercel.app/tools/articles",
+      url: "https://www.chipsetsrm.live/tools/articles",
       type: "website",
       siteName: "CHIPSET SRM University Ramapuram",
       images: [
         {
-          url: "https://chipsetsrm.vercel.app/assets/chipset-og-image.png",
+          url: "https://www.chipsetsrm.live/assets/chipset-og-image.png",
           width: 1200,
           height: 630,
           alt: "CHiPSET Tech Articles",
@@ -48,11 +48,11 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: "Tech Articles | Programming Tutorials - CHiPSET",
       description,
-      images: ["https://chipsetsrm.vercel.app/assets/chipset-og-image.png"],
+      images: ["https://www.chipsetsrm.live/assets/chipset-og-image.png"],
       creator: "@chipsetsrm",
     },
     alternates: {
-      canonical: "https://chipsetsrm.vercel.app/tools/articles",
+      canonical: "https://www.chipsetsrm.live/tools/articles",
     },
     robots: {
       index: true,
@@ -80,13 +80,13 @@ export default async function ArticlesPage() {
     name: "Tech Articles & Programming Tutorials",
     description:
       "Collection of technical articles, programming tutorials, and coding guides by CHIPSET SRM University Ramapuram",
-    url: "https://chipsetsrm.vercel.app/tools/articles",
+    url: "https://www.chipsetsrm.live/tools/articles",
     publisher: {
       "@type": "Organization",
       name: "CHIPSET SRM University Ramapuram",
       logo: {
         "@type": "ImageObject",
-        url: "https://chipsetsrm.vercel.app/assets/chipset-logo.png",
+        url: "https://www.chipsetsrm.live/assets/chipset-logo.png",
       },
     },
     mainEntity: {
@@ -94,7 +94,7 @@ export default async function ArticlesPage() {
       itemListElement: articles.map((article: any, index: number) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: `https://chipsetsrm.vercel.app/tools/articles/${article.slug.current}`,
+        url: `https://www.chipsetsrm.live/tools/articles/${article.slug.current}`,
         name: article.title,
       })),
     },
@@ -109,19 +109,19 @@ export default async function ArticlesPage() {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://chipsetsrm.vercel.app",
+        item: "https://www.chipsetsrm.live",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Tools",
-        item: "https://chipsetsrm.vercel.app/tools",
+        item: "https://www.chipsetsrm.live/tools",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "Articles",
-        item: "https://chipsetsrm.vercel.app/tools/articles",
+        item: "https://www.chipsetsrm.live/tools/articles",
       },
     ],
   };

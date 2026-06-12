@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Attendance Calculator SRM | Free SRM University Attendance Tracker",
         description: "Free attendance calculator for SRM University students. Track your attendance and calculate how many classes you can miss while maintaining 75% or 90%.",
-        url: "https://chipsetsrm.vercel.app/tools/attendance-calculator",
+        url: "https://www.chipsetsrm.live/tools/attendance-calculator",
         type: "website",
         siteName: "CHIPSET SRM University Ramapuram",
     },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
         description: "Free attendance calculator for SRM University students. Track attendance and calculate required classes instantly.",
     },
     alternates: {
-        canonical: "https://chipsetsrm.vercel.app/tools/attendance-calculator",
+        canonical: "https://www.chipsetsrm.live/tools/attendance-calculator",
     },
 };
 

@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { client } from '@/sanity/lib/client'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://chipsetsrm.vercel.app'
+    const baseUrl = 'https://www.chipsetsrm.live'
 
     // Define all your static routes
     const staticRoutes: MetadataRoute.Sitemap = [

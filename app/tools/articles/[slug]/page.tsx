@@ -26,8 +26,8 @@ export async function generateMetadata({ params }: ArticleParams): Promise<Metad
     };
   }
 
-  const articleUrl = `https://chipsetsrm.vercel.app/tools/articles/${params.slug}`;
-  const imageUrl = article.mainImage || "https://chipsetsrm.vercel.app/assets/chipset-og-image.png";
+  const articleUrl = `https://www.chipsetsrm.live/tools/articles/${params.slug}`;
+  const imageUrl = article.mainImage || "https://www.chipsetsrm.live/assets/chipset-og-image.png";
 
   return {
     title: `${article.title} | CHiPSET Tech Articles`,
@@ -102,8 +102,8 @@ export default async function ArticlePage({ params }: ArticleParams) {
     notFound();
   }
 
-  const articleUrl = `https://chipsetsrm.vercel.app/tools/articles/${params.slug}`;
-  const imageUrl = article.mainImage || "https://chipsetsrm.vercel.app/assets/chipset-og-image.png";
+  const articleUrl = `https://www.chipsetsrm.live/tools/articles/${params.slug}`;
+  const imageUrl = article.mainImage || "https://www.chipsetsrm.live/assets/chipset-og-image.png";
 
   // JSON-LD structured data for Article
   const articleJsonLd = {
@@ -123,7 +123,7 @@ export default async function ArticlePage({ params }: ArticleParams) {
       name: "CHIPSET SRM University Ramapuram",
       logo: {
         "@type": "ImageObject",
-        url: "https://chipsetsrm.vercel.app/assets/chipset-logo.png",
+        url: "https://www.chipsetsrm.live/assets/chipset-logo.png",
       },
     },
     mainEntityOfPage: {
@@ -144,19 +144,19 @@ export default async function ArticlePage({ params }: ArticleParams) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://chipsetsrm.vercel.app",
+        item: "https://www.chipsetsrm.live",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Tools",
-        item: "https://chipsetsrm.vercel.app/tools",
+        item: "https://www.chipsetsrm.live/tools",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "Articles",
-        item: "https://chipsetsrm.vercel.app/tools/articles",
+        item: "https://www.chipsetsrm.live/tools/articles",
       },
       {
         "@type": "ListItem",

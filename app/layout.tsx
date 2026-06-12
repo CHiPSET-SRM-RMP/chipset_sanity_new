@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: "CHIPSET | SRM University Ramapuram",
     description:
       "Official website of CHIPSET, the technical club of SRM University Ramapuram. Get updates, events, recruitment, and more.",
-    url: "https://www.chipsetsrm.live/",
+    url: "https://www.chipsetsrm.live",
     siteName: "CHIPSET SRM University Ramapuram",
     images: [
       {
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
   },
 
   alternates: {
-    canonical: "https://www.chipsetsrm.live/",
+    canonical: "https://www.chipsetsrm.live",
   },
 };
 
