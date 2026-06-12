@@ -89,7 +89,7 @@ export default function PrivacyPolicy() {
             </p>
             <div className="bg-gray-100 p-4 rounded-lg">
               <p><strong>Email:</strong> chipsetrmp@gmail.com</p>
-              <p><strong>Website:</strong> www.chipsetsrm.vercel.app</p>
+              <p><strong>Website:</strong> www.chipsetsrm.live</p>
             </div>
           </section>
 

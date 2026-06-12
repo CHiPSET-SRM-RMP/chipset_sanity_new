@@ -9,7 +9,7 @@ import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://chipsetsrm.vercel.app"),  // ✅ FIXED
+  metadataBase: new URL("https://www.chipsetsrm.live"),  // ✅ FIXED
   title: {
     default: "CHIPSET | SRM University Ramapuram",
     template: "%s | CHIPSET SRM University Ramapuram",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: "CHIPSET | SRM University Ramapuram",
     description:
       "Official website of CHIPSET, the technical club of SRM University Ramapuram. Get updates, events, recruitment, and more.",
-    url: "https://chipsetsrm.vercel.app",
+    url: "https://www.chipsetsrm.live",
     siteName: "CHIPSET SRM University Ramapuram",
     images: [
       {
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
   },
 
   alternates: {
-    canonical: "https://chipsetsrm.vercel.app",
+    canonical: "https://www.chipsetsrm.live",
   },
 };
 

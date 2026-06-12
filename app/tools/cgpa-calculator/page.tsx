@@ -22,7 +22,7 @@ export const metadata = {
     title: "CGPA Calculator SRM | Free SRM University GPA Calculator",
     description:
       "Free CGPA calculator for SRM University students. Calculate your SRM CGPA, semester GPA, and overall CGPA instantly using the official SRM grading system.",
-    url: "https://chipsetsrm.vercel.app/tools/cgpa-calculator",
+    url: "https://www.chipsetsrm.live/tools/cgpa-calculator",
     type: "website",
     siteName: "CHIPSET SRM University Ramapuram",
   },
@@ -33,7 +33,7 @@ export const metadata = {
       "Free CGPA calculator for SRM University students. Calculate your SRM CGPA and GPA instantly.",
   },
   alternates: {
-    canonical: "https://chipsetsrm.vercel.app/tools/cgpa-calculator",
+    canonical: "https://www.chipsetsrm.live/tools/cgpa-calculator",
   },
 };
 

@@ -79,7 +79,7 @@ Import your project and follow the deployment steps.
 
 For more details, check out the Next.js Deployment Documentation.
 
-check out new cgpa calcultor : https://chipsetsrm.vercel.app/tools/cgpa-calculator
+check out new cgpa calcultor : https://www.chipsetsrm.live/tools/cgpa-calculator
 
 Contributing
 We welcome contributions from the community! If you'd like to contribute to the Chitset project, please follow these steps:
@@ -97,7 +97,7 @@ For any questions or inquiries, feel free to reach out to us:
 
 Email: chipset@srmramapuram.in
 
-Website: Chipsetsrm.vercel.app
+Website: www.chipsetsrm.live
 
 Social Media: Instagram | Twitter
 
