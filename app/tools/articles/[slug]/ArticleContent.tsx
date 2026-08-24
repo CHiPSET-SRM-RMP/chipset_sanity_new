@@ -13,9 +13,11 @@ interface Article {
   mainImage?: string;
   content?: any[];
   tags: string[];
-  displayType?: "gallery" | "blog" | "hybrid";
+  displayType?: "gallery" | "blog" | "hybrid" | "pdf";
+  pdfUrl?: string;
 }
 
 export default function ArticleContent({ article }: { article: Article }) {
   return <DynamicArticleRenderer article={article} />;
 }
+

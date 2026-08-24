@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Search, BookOpen, Calendar, User, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, BookOpen, Calendar, User, X, ChevronLeft, ChevronRight, FileText } from "lucide-react";
 import Link from "next/link";
 
 interface Article {
@@ -15,6 +15,8 @@ interface Article {
   mainImage?: string;
   content?: Array<{ url?: string; alt?: string; _type?: string }>;
   tags: string[];
+  displayType?: "gallery" | "blog" | "hybrid" | "pdf";
+  pdfUrl?: string;
 }
 
 const ArticlesImageGallery: React.FC = () => {
@@ -141,8 +143,26 @@ const ArticlesImageGallery: React.FC = () => {
                         alt={article.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
                       />
-                      <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                        {images.length} images
+                      {article.displayType === "pdf" ? (
+                        <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1.5">
+                          <FileText size={14} />
+                          PDF
+                        </div>
+                      ) : (
+                        <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                          {images.length} images
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* PDF placeholder if no mainImage */}
+                  {!article.mainImage && article.displayType === "pdf" && (
+                    <div className="relative h-48 overflow-hidden bg-gradient-to-br from-red-50 to-red-100 flex items-center justify-center">
+                      <FileText size={48} className="text-red-400" />
+                      <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1.5">
+                        <FileText size={14} />
+                        PDF
                       </div>
                     </div>
                   )}

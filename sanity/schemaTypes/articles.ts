@@ -52,7 +52,16 @@ export default defineType({
       options: {
         hotspot: true,
       },
-      validation: (Rule) => Rule.required(),
+      description: "Required for blog/gallery/hybrid articles. Optional for PDF articles.",
+    }),
+    defineField({
+      name: "pdfFile",
+      title: "PDF File",
+      type: "file",
+      options: {
+        accept: ".pdf",
+      },
+      description: "Upload a PDF file. Required when display type is PDF.",
     }),
     defineField({
       name: "content",
@@ -79,7 +88,7 @@ export default defineType({
           },
         },
       ],
-      validation: (Rule) => Rule.required(),
+      description: "Required for blog/gallery/hybrid articles. Optional for PDF articles.",
     }),
     defineField({
       name: "tags",
@@ -106,11 +115,12 @@ export default defineType({
           { title: "Gallery (Images Only)", value: "gallery" },
           { title: "Blog (Full Content)", value: "blog" },
           { title: "Hybrid (Blog + Gallery)", value: "hybrid" },
+          { title: "PDF (Upload PDF File)", value: "pdf" },
         ],
       },
       initialValue: "blog",
       validation: (Rule) => Rule.required(),
-      description: "How to display this article - gallery mode shows only images, blog mode shows full text content, hybrid shows both",
+      description: "How to display this article - gallery shows only images, blog shows full text, hybrid shows both, pdf displays an uploaded PDF file",
     }),
   ],
   preview: {

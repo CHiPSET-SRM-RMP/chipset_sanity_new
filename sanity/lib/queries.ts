@@ -19,6 +19,7 @@ export const articlesQuery = groq`
       tags,
       displayType,
       "mainImage": mainImage.asset->url,
+      "pdfUrl": pdfFile.asset->url,
       "content": content[]{
         ...,
         _type == "image" => {
