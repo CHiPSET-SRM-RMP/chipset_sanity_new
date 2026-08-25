@@ -5,6 +5,10 @@ const nextConfig = {
     images: {
         domains: ['via.placeholder.com', 'cdn.sanity.io', 'tailwindcomponents.com' , 'image.winudf.com', 'images.unsplash.com','image.winudf.com'], // Add both domains
       },
-    };
+    webpack: (config) => {
+        config.resolve.alias.canvas = false;
+        return config;
+    },
+};
 
 export default nextConfig;

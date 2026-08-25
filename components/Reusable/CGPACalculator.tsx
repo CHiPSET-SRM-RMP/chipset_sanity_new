@@ -62,6 +62,14 @@ const courseDatabase: CourseData[] = [
   { code: "21CSC208J", name: "INTERNET OF THINGS", semester: 4, credits: 3 },
   { code: "21CSC209T", name: "SOCIAL ENGINEERING", semester: 4, credits: 2 },
   { code: "21GNM202T", name: "UNIVERSAL HUMAN VALUES (UNDERSTANDING HARMONY AND ETHICAL HUMAN CONDUCT)", semester: 4, credits: 3, isUHV: true },
+
+  // Semester 5
+  { code: "21CSC301T", name: "DISCRETE MATHEMATICS", semester: 5, credits: 4 },
+  { code: "21CSC302J", name: "FORMAL LANGUAGE AND AUTOMATA", semester: 5, credits: 3 },
+  { code: "21CSC303J", name: "COMPUTER NETWORKS", semester: 5, credits: 4 },
+  { code: "21CSC304J", name: "MACHINE LEARNING", semester: 5, credits: 3 },
+  { code: "21CSC305J", name: "FULL STACK WEB DEVELOPMENT", semester: 5, credits: 3 },
+  { code: "21CSC306T", name: "SHORT RANGE WIRELESS COMMUNICATION", semester: 5, credits: 3 },
 ];
 
 const gradePoints: { [key: string]: number } = {
@@ -99,8 +107,9 @@ const CGPACalculator: React.FC = () => {
         if (selectedSemester === "1st") {
           semesters = [1, 2];
         } else if (selectedSemester === "2nd") {
-          // For 2nd year, use the specific semester selection if available
           semesters = selectedSpecificSemester === "3rd" ? [3] : selectedSpecificSemester === "4th" ? [4] : [3, 4];
+        } else if (selectedSemester === "3rd") {
+          semesters = selectedSpecificSemester === "5th" ? [5] : selectedSpecificSemester === "6th" ? [6] : [5, 6];
         }
         return courseDatabase.filter((course) => semesters.includes(course.semester));
       })()
@@ -112,6 +121,8 @@ const CGPACalculator: React.FC = () => {
       setSelectedSpecificSemester("");
     } else if (yearGroup === "2nd") {
       setSelectedSpecificSemester("3rd"); // Default to 3rd semester
+    } else if (yearGroup === "3rd") {
+      setSelectedSpecificSemester("5th"); // Default to 5th semester
     }
     // Load courses based on year group
     let semesters: number[] = [];
@@ -119,6 +130,8 @@ const CGPACalculator: React.FC = () => {
       semesters = [1, 2]; // Sem 1 and 2
     } else if (yearGroup === "2nd") {
       semesters = [3]; // Default to Sem 3
+    } else if (yearGroup === "3rd") {
+      semesters = [5]; // Default to Sem 5
     }
 
     const courses = courseDatabase.filter((course) => semesters.includes(course.semester));
@@ -142,10 +155,15 @@ const CGPACalculator: React.FC = () => {
     setSubjects(newSubjects.length > 0 ? newSubjects : [{ id: "1", name: "", credits: 0, grade: "A+", isUHV: false }]);
   };
 
-  const handleSelect2ndYearSemester = (sem: string) => {
+  const handleSelectSpecificSemester = (sem: string) => {
     setSelectedSpecificSemester(sem);
     // Load courses for the selected semester
-    const semesterNum = sem === "3rd" ? 3 : 4;
+    let semesterNum = 3;
+    if (sem === "3rd") semesterNum = 3;
+    else if (sem === "4th") semesterNum = 4;
+    else if (sem === "5th") semesterNum = 5;
+    else if (sem === "6th") semesterNum = 6;
+
     const courses = courseDatabase.filter((course) => course.semester === semesterNum);
 
     const newSubjects = courses.map((course, index) => ({
@@ -247,15 +265,16 @@ const CGPACalculator: React.FC = () => {
             </span>
             <span className="text-xs font-semibold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">Optional</span>
           </h2>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             {[
               { label: "1st Year (Sem 1 & 2)", value: "1st" },
               { label: "2nd Year (Sem 3 & 4)", value: "2nd" },
+              { label: "3rd Year (Sem 5 & 6)", value: "3rd" },
             ].map((year) => (
               <button
                 key={year.value}
                 onClick={() => handleSelectSemester(year.value)}
-                className={`py-3 px-4 rounded-lg font-bold text-sm transition-all duration-300 ${
+                className={`py-3 px-4 rounded-lg font-bold text-[11px] md:text-sm transition-all duration-300 ${
                   selectedSemester === year.value
                     ? "bg-gradient-to-r from-[#f39e2f] to-[#e08d1f] text-white shadow-lg scale-105"
                     : "bg-white border-2 border-gray-300 text-gray-700 hover:border-[#f39e2f] hover:text-[#f39e2f]"
@@ -267,23 +286,32 @@ const CGPACalculator: React.FC = () => {
           </div>
           {selectedSemester && (
             <div className="space-y-3 mt-5 pt-5 border-t border-blue-200">
-              {selectedSemester === "2nd" && (
+              {(selectedSemester === "2nd" || selectedSemester === "3rd") && (
                 <div className="mb-4">
                   <label className="block text-sm font-bold text-gray-700 mb-2">
                     Select Semester:
                   </label>
                   <select
                     value={selectedSpecificSemester}
-                    onChange={(e) => handleSelect2ndYearSemester(e.target.value)}
+                    onChange={(e) => handleSelectSpecificSemester(e.target.value)}
                     className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-[#f39e2f] focus:border-transparent transition-all bg-white"
                   >
-                    <option value="3rd">3rd Semester</option>
-                    <option value="4th">4th Semester</option>
+                    {selectedSemester === "2nd" ? (
+                      <>
+                        <option value="3rd">3rd Semester</option>
+                        <option value="4th">4th Semester</option>
+                      </>
+                    ) : (
+                      <>
+                        <option value="5th">5th Semester</option>
+                        <option value="6th">6th Semester</option>
+                      </>
+                    )}
                   </select>
                 </div>
               )}
               <p className="text-sm text-gray-700 font-medium">
-                ✨ {semesterCourses.length} courses loaded for {selectedSemester} year{selectedSemester === "2nd" && selectedSpecificSemester ? ` - ${selectedSpecificSemester} Semester` : ""}. Customize below.
+                ✨ {semesterCourses.length} courses loaded for {selectedSemester} year{selectedSpecificSemester ? ` - ${selectedSpecificSemester} Semester` : ""}. Customize below.
               </p>
               <div className="bg-blue-100/60 border-l-4 border-blue-500 rounded-lg p-3 flex items-start gap-3">
                 <Trash2 size={16} className="text-blue-600 flex-shrink-0 mt-0.5" />

@@ -44,7 +44,10 @@ const predefinedSubjects = [
     { name: "Environmental Science", hours: 15 },              // L=1 T=0 P=0 C=0
     { name: "Constitution of India", hours: 15 },              // L=1 T=0 P=0 C=0
     { name: "Indian Traditional Knowledge", hours: 15 },       // L=1 T=0 P=0 C=0
+    { name: "Indian Art Form", hours: 15 },
     { name: "Universal Human Values", hours: 15 },             // L=1 T=0 P=0 C=0
+    { name: "Discrete Mathematics", hours: 60 },
+    { name: "Short Range Wireless Communication", hours: 45 },
     { name: "UHV -2 universal human values understanding harmony and ethical human conduct", hours: 45 },
     { name: "Critical and Creative Thinking", hours: 30 },
     { name: "Professional Skills and Practices", hours: 30 },  // L=0 T=0 P=2 C=0

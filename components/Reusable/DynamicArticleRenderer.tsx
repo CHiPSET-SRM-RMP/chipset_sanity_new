@@ -1,10 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar, User, ChevronLeft, ChevronDown, Minus } from "lucide-react";
 import Link from "next/link";
 import PortableTextRenderer from "./PortableTextRenderer";
 import ImageGallery from "./ImageGallery";
+import dynamic from "next/dynamic";
+
+const PdfViewer = dynamic(() => import("./PdfViewer"), { ssr: false });
 
 interface ContentBlock {
   _type?: string;
@@ -37,7 +40,8 @@ interface Article {
   mainImage?: string;
   content?: ContentBlock[];
   tags: string[];
-  displayType?: "gallery" | "blog" | "hybrid";
+  displayType?: "gallery" | "blog" | "hybrid" | "pdf";
+  pdfUrl?: string;
 }
 
 interface DynamicArticleRendererProps {
@@ -51,6 +55,15 @@ const DynamicArticleRenderer: React.FC<DynamicArticleRendererProps> = ({
   const [expandDescription, setExpandDescription] = useState(false);
   const [minimizeHeader, setMinimizeHeader] = useState(false);
   const displayType = article.displayType || "blog";
+
+  useEffect(() => {
+    if (displayType === "pdf") {
+      document.documentElement.classList.add("pdf-article-page");
+      return () => {
+        document.documentElement.classList.remove("pdf-article-page");
+      };
+    }
+  }, [displayType]);
 
   // Extract images and text blocks from content
   const images = (article.content || []).filter(
@@ -135,6 +148,39 @@ const DynamicArticleRenderer: React.FC<DynamicArticleRendererProps> = ({
       </div>
     </div>
   );
+
+  // PDF Mode - Custom PDF viewer
+  if (displayType === "pdf" && article.pdfUrl) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex flex-col">
+        {/* Compact header for PDF mode */}
+        <div className="bg-slate-950/95 border-b border-slate-800 px-4 md:px-6 py-2 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <Link
+              href="/tools/articles"
+              className="flex-shrink-0 inline-flex items-center gap-1 text-xs text-slate-400 hover:text-white transition"
+            >
+              <ChevronLeft size={14} /> Back
+            </Link>
+            <span className="text-slate-600 hidden md:inline">|</span>
+            <h1 className="text-sm md:text-base font-semibold text-white truncate">
+              {article.title}
+            </h1>
+          </div>
+          <div className="flex items-center gap-3 text-[11px] text-slate-500 flex-shrink-0">
+            <span>{article.author}</span>
+            <span className="hidden md:inline">
+              {new Date(article.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+            </span>
+          </div>
+        </div>
+
+        <div className="flex-1 flex flex-col">
+          <PdfViewer url={article.pdfUrl} title={article.title} />
+        </div>
+      </div>
+    );
+  }
 
   // Gallery Mode - Images only with minimal description
   if (displayType === "gallery") {
